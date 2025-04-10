@@ -28,32 +28,31 @@
             width: 60%;
             max-width: 1600px;
             margin: 0 auto;
-            /* 调整高度计算方式，针对移动端优化 */
-            height: calc(100vh - 300px);
-            min-height: 300px;  /* 降低移动端最小高度 */
-            max-height: 900px;
+            /* 移除固定高度计算，使用宽高比控制 */
+            height: 0;
+            padding-bottom: 33.75%; /* 60% * 9/16 = 33.75% */
+            min-height: auto;
+            max-height: none;
             background: #000;
             border-radius: 16px;
             overflow: hidden;
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
         }
 
-        /* 添加移动端响应式样式 */
+        /* 移除之前的before伪元素，因为不再需要 */
+        .game-container::before {
+            display: none;
+        }
+
+        /* 移动端样式保持不变 */
         @media (max-width: 768px) {
             .game-container {
-                width: 100%;  /* 移动端全宽显示 */
-                height: calc(100vh - 400px);  /* 移动端减少更多顶部空间 */
-                min-height: 240px;  /* 移动端更小的最小高度 */
+                width: 100%;
+                height: 56.25vw;
+                padding-bottom: 0;
             }
         }
-
-        /* 移除之前的padding-top，改用aspect-ratio */
-        .game-container::before {
-            content: "";
-            display: block;
-            aspect-ratio: 16/9;
-        }
-
+        
         .game-frame {
             position: absolute;
             top: 50%;
@@ -62,8 +61,7 @@
             width: 100%;
             height: 100%;
             border: none;
-            /* 保持宽高比的同时填充容器 */
-            object-fit: contain;
+            object-fit: cover;  /* 改为cover以确保填充整个容器 */
         }
 
         .btn-primary {
@@ -213,12 +211,20 @@
         });
 
         fullscreenBtn.addEventListener('click', () => {
-            if (gameFrame.requestFullscreen) {
-                gameFrame.requestFullscreen();
-            } else if (gameFrame.webkitRequestFullscreen) {
-                gameFrame.webkitRequestFullscreen();
-            } else if (gameFrame.msRequestFullscreen) {
-                gameFrame.msRequestFullscreen();
+            const container = document.querySelector('.game-container');
+            if (document.fullscreenEnabled) {
+                if (gameFrame.requestFullscreen) {
+                    gameFrame.requestFullscreen();
+                } else if (gameFrame.webkitRequestFullscreen) {
+                    gameFrame.webkitRequestFullscreen();
+                } else if (gameFrame.msRequestFullscreen) {
+                    gameFrame.msRequestFullscreen();
+                } else {
+                    // 降级方案：如果iframe全屏失败，尝试容器全屏
+                    container.requestFullscreen().catch(err => {
+                        console.log('全屏模式可能不受支持');
+                    });
+                }
             }
         });
 
