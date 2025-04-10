@@ -25,17 +25,26 @@
 
         .game-container {
             position: relative;
-            /* 修改宽度设置 */
-            width: 60%;  /* 或者使用具体像素值，比如 width: 1200px */
+            width: 60%;
             max-width: 1600px;
             margin: 0 auto;
-            height: calc(100vh - 200px);
-            min-height: 480px;
+            /* 调整高度计算方式，针对移动端优化 */
+            height: calc(100vh - 300px);
+            min-height: 300px;  /* 降低移动端最小高度 */
             max-height: 900px;
             background: #000;
             border-radius: 16px;
             overflow: hidden;
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        /* 添加移动端响应式样式 */
+        @media (max-width: 768px) {
+            .game-container {
+                width: 100%;  /* 移动端全宽显示 */
+                height: calc(100vh - 400px);  /* 移动端减少更多顶部空间 */
+                min-height: 240px;  /* 移动端更小的最小高度 */
+            }
         }
 
         /* 移除之前的padding-top，改用aspect-ratio */
