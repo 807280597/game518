@@ -2,18 +2,6 @@
 const gamesConfig = {
     games: [
         {
-            "id": 1,
-            "title": "Space Explorer",
-            "shortDescription": "Embark on an interstellar journey through unknown galaxies",
-            "fullDescription": "Space Explorer takes you on an epic adventure through the cosmos. Navigate through asteroid fields, discover new planets, and encounter alien civilizations in this immersive space simulation game.",
-            "imageUrl": "https://images.unsplash.com/photo-1581822261290-991b38693d1b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-            "category": "Adventure",
-            "rating": 4.8,
-            "playCount": 1234,
-            "releaseDate": "2023-05-15",
-            "iframeUrl": "https://www.addictinggames.com/embed/html5-games/23803"
-        },
-        {
             "id": 1744360201816,
             "title": "Hazmob FPS: Online Shooter",
             "shortDescription": "Hazmob FPS: Online Shooter is a multiplayer shooting FPS game where every second counts! Play against other players across multiple game modes in non-stop combat. This first-person shooter game is ideal for those seeking a bit of thrill.",
@@ -24,6 +12,18 @@ const gamesConfig = {
             "playCount": 7438,
             "releaseDate": "2025-04-11",
             "iframeUrl": "https://www.crazygames.com/embed/hazmob-fps-online-shooter"
-        }
+          },
+          {
+            "id": 1744365923163,
+            "title": "Racing Limits",
+            "shortDescription": "Racing Limits is a racing game that lets you push your skills to the max. Race and overtake vehicles in city and highway traffic with four thrilling game modes: carrier, infinite, against-time, and free mode. Choose between one-way and two-way traffic, and experience three times of day - 'Morning,' 'Sunset,' and 'Night.' With multiple camera angles, sensitive controls, and realistic physics, it's a high-speed adventure you won't want to miss. Customize, upgrade, and take on numerous race events in this graphically stunning racing world!\n",
+            "fullDescription": "Controls\nUp arrow key to accelerate\nDown arrow key to decelerate\nLeft and right arrow keys to steer\nC to change the camera view\nF to use nitro\nE to horn\nW to gear up in manual gear mode\nD to gear down in manual gear mode\nESC to quit current progress",
+            "imageUrl": "https://imgs.crazygames.com/racing-limits_16x9/20231106035424/racing-limits_16x9-cover?metadata=none&quality=70&width=475",
+            "category": "赛车",
+            "rating": 4.4,
+            "playCount": 1895,
+            "releaseDate": "2025-04-11",
+            "iframeUrl": "https://www.crazygames.com/embed/racing-limits"
+          }
     ]
 };
