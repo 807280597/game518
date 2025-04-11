@@ -3,242 +3,123 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BuildNow GG - Free Online Building Game | Game518</title>
-    <meta name="description" content="Play BuildNow GG online - an exciting building and survival game. Experience intense gameplay with stunning graphics. Free to play on Game518.">
-    <link rel="canonical" href="https://game518.online/games/buildnow-gg">
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <style>
-        :root {
-            --apple-blue: #007AFF;
-            --apple-green: #34C759;
-            --apple-red: #FF3B30;
-            --apple-orange: #FF9500;
-            --apple-purple: #AF52DE;
-            --apple-gray: #8E8E93;
-            --apple-bg: #F2F2F7;
-        }
-        
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background-color: var(--apple-bg);
-        }
-
-        .game-container {
-            position: relative;
-            width: 60%;
-            max-width: 1600px;
-            margin: 0 auto;
-            /* 移除固定高度计算，使用宽高比控制 */
-            height: 0;
-            padding-bottom: 33.75%; /* 60% * 9/16 = 33.75% */
-            min-height: auto;
-            max-height: none;
-            background: #000;
-            border-radius: 16px;
-            overflow: hidden;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-        }
-
-        /* 移除之前的before伪元素，因为不再需要 */
-        .game-container::before {
-            display: none;
-        }
-
-        /* 移动端样式保持不变 */
-        @media (max-width: 768px) {
-            .game-container {
-                width: 100%;
-                height: 56.25vw;
-                padding-bottom: 0;
+    <title>GameVerse - Your Ultimate Gaming Destination</title>
+    <meta name="description" content="Discover and play the best online games at GameVerse. From action and adventure to puzzles and strategy games, find your next gaming obsession.">
+    <link rel="canonical" href="https://gameverse.example.com/">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="css/styles.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        apple: {
+                            blue: '#007AFF',
+                            green: '#34C759',
+                            indigo: '#5856D6',
+                            orange: '#FF9500',
+                            pink: '#FF2D55',
+                            purple: '#AF52DE',
+                            red: '#FF3B30',
+                            teal: '#5AC8FA',
+                            yellow: '#FFCC00',
+                            gray: {
+                                100: '#F2F2F7',
+                                200: '#E5E5EA',
+                                300: '#D1D1D6',
+                                400: '#C7C7CC',
+                                500: '#AEAEB2',
+                                600: '#8E8E93',
+                                700: '#636366',
+                                800: '#48484A',
+                                900: '#3A3A3C',
+                                950: '#1C1C1E'
+                            }
+                        }
+                    }
+                }
             }
         }
-        
-        .game-frame {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 100%;
-            height: 100%;
-            border: none;
-            object-fit: cover;  /* 改为cover以确保填充整个容器 */
-        }
-
-        .btn-primary {
-            background-color: var(--apple-blue);
-            transition: all 0.3s ease;
-        }
-
-        .btn-primary:hover {
-            background-color: #0062cc;
-            transform: translateY(-2px);
-        }
-
-        .loading-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.8);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 10;
-        }
-
-        .spinner {
-            border: 4px solid rgba(255, 255, 255, 0.1);
-            border-left-color: var(--apple-blue);
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            animation: spin 1s linear infinite;
-        }
-
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-    </style>
+    </script>
 </head>
-<body class="min-h-screen">
-    <header class="bg-white shadow-sm">
-        <div class="container mx-auto px-4 py-4">
-            <nav class="flex items-center justify-between">
-                <a href="/" class="text-2xl font-bold text-gray-800">Game518</a>
-                <div class="hidden md:flex space-x-6">
-                    <a href="/" class="text-gray-600 hover:text-gray-900">Home</a>
-                    <a href="/games" class="text-gray-600 hover:text-gray-900">Games</a>
-                    <a href="/about" class="text-gray-600 hover:text-gray-900">About</a>
+<body class="bg-apple-gray-100 text-apple-gray-900">
+    <header class="bg-apple-blue text-white shadow-md">
+        <div class="container mx-auto px-4 py-6">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="text-center md:text-left mb-4 md:mb-0">
+                    <a href="index.html" class="text-3xl font-bold tracking-tight">GameVerse</a>
+                    <p class="text-sm mt-1">Your Ultimate Gaming Destination</p>
                 </div>
-            </nav>
+                <nav>
+                    <ul class="flex space-x-6">
+                        <li><a href="index.html" class="hover:text-apple-gray-200 transition-colors">Home</a></li>
+                        <li><a href="#categories" class="hover:text-apple-gray-200 transition-colors">Categories</a></li>
+                        <li><a href="#about" class="hover:text-apple-gray-200 transition-colors">About</a></li>
+                    </ul>
+                </nav>
+            </div>
         </div>
     </header>
 
     <main class="container mx-auto px-4 py-8">
         <section class="mb-12">
-            <h1 class="text-4xl md:text-5xl font-bold mb-4 text-gray-800">BuildNow GG: Ultimate Building Adventure</h1>
-            <p class="text-xl text-gray-600 mb-8">Create, build, and survive in this exciting multiplayer building game. Test your creativity and strategic skills!</p>
-            
-            <div class="game-container mb-8">
-                <div id="loading-overlay" class="loading-overlay">
-                    <div class="spinner"></div>
-                </div>
-                <iframe id="game-frame"
-                    class="game-frame"
-                    src="https://games.crazygames.com/en_US/buildnow-gg/index.html"
-                    loading="eager"
-                    allow="autoplay; fullscreen; gamepad"
-                    allowfullscreen></iframe>
-            </div>
-            
-            <div class="flex justify-center space-x-4 mb-8">
-                <button id="fullscreen-btn" class="btn-primary text-white font-bold py-3 px-8 rounded-lg">
-                    Play Fullscreen
-                </button>
-                <button id="restart-btn" class="bg-gray-700 hover:bg-gray-600 text-white font-bold py-3 px-8 rounded-lg transition-all duration-300">
-                    Restart Game
-                </button>
+            <h1 class="text-4xl md:text-5xl font-bold text-center mb-8">Discover Amazing Games</h1>
+            <p class="text-xl text-center text-apple-gray-700 max-w-3xl mx-auto">
+                Explore our collection of handpicked games that offer immersive experiences across various genres. 
+                Whether you're looking for adventure, strategy, or puzzles, we've got you covered.
+            </p>
+        </section>
+
+        <section class="mb-16">
+            <h2 class="text-3xl font-bold mb-8 text-apple-blue">Featured Games</h2>
+            <div id="games-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Game cards will be dynamically inserted here -->
             </div>
         </section>
 
-        <section class="mb-12">
-            <h2 class="text-2xl font-bold mb-6 text-gray-800">Game Overview</h2>
-            <div class="bg-white rounded-lg p-6 shadow-sm">
-                <p class="mb-4">BuildNow GG is an exciting multiplayer building game where you can create amazing structures, compete with other players, and survive in a dynamic environment. Use your creativity and strategic thinking to build the most impressive constructions.</p>
+        <section id="categories" class="mb-16">
+            <h2 class="text-3xl font-bold mb-8 text-apple-purple">Game Categories</h2>
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+                <a href="#" class="bg-apple-blue text-white rounded-lg p-6 text-center hover:shadow-lg transition-shadow">
+                    <span class="text-lg font-semibold">Adventure</span>
+                </a>
+                <a href="#" class="bg-apple-green text-white rounded-lg p-6 text-center hover:shadow-lg transition-shadow">
+                    <span class="text-lg font-semibold">Puzzle</span>
+                </a>
+                <a href="#" class="bg-apple-orange text-white rounded-lg p-6 text-center hover:shadow-lg transition-shadow">
+                    <span class="text-lg font-semibold">Racing</span>
+                </a>
+                <a href="#" class="bg-apple-pink text-white rounded-lg p-6 text-center hover:shadow-lg transition-shadow">
+                    <span class="text-lg font-semibold">Strategy</span>
+                </a>
+                <a href="#" class="bg-apple-purple text-white rounded-lg p-6 text-center hover:shadow-lg transition-shadow">
+                    <span class="text-lg font-semibold">RPG</span>
+                </a>
+                <a href="#" class="bg-apple-red text-white rounded-lg p-6 text-center hover:shadow-lg transition-shadow">
+                    <span class="text-lg font-semibold">Action</span>
+                </a>
             </div>
         </section>
 
-        <section class="grid md:grid-cols-2 gap-8 mb-12">
-            <div>
-                <h2 class="text-2xl font-bold mb-6 text-gray-800">How to Play</h2>
-                <div class="bg-white rounded-lg p-6 shadow-sm">
-                    <ul class="space-y-4">
-                        <li class="flex items-center space-x-3">
-                            <span class="text-apple-blue">•</span>
-                            <span>Use WASD or arrow keys to move</span>
-                        </li>
-                        <li class="flex items-center space-x-3">
-                            <span class="text-apple-blue">•</span>
-                            <span>Left click to place blocks</span>
-                        </li>
-                        <li class="flex items-center space-x-3">
-                            <span class="text-apple-blue">•</span>
-                            <span>Right click to remove blocks</span>
-                        </li>
-                        <li class="flex items-center space-x-3">
-                            <span class="text-apple-blue">•</span>
-                            <span>Space to jump</span>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-
-            <div>
-                <h2 class="text-2xl font-bold mb-6 text-gray-800">Features</h2>
-                <div class="bg-white rounded-lg p-6 shadow-sm">
-                    <ul class="space-y-4">
-                        <li class="flex items-center space-x-3">
-                            <span class="text-apple-green">•</span>
-                            <span>Multiplayer gameplay</span>
-                        </li>
-                        <li class="flex items-center space-x-3">
-                            <span class="text-apple-green">•</span>
-                            <span>Creative building system</span>
-                        </li>
-                        <li class="flex items-center space-x-3">
-                            <span class="text-apple-green">•</span>
-                            <span>Various building materials</span>
-                        </li>
-                        <li class="flex items-center space-x-3">
-                            <span class="text-apple-green">•</span>
-                            <span>Real-time interactions</span>
-                        </li>
-                    </ul>
-                </div>
+        <section id="about" class="bg-white rounded-xl shadow-lg p-8 mb-16">
+            <h2 class="text-3xl font-bold mb-6 text-apple-teal">About GameVerse</h2>
+            <div class="prose max-w-none text-apple-gray-800">
+                <p class="mb-4">
+                    GameVerse is dedicated to bringing you the best online gaming experience. Our platform features a carefully curated selection of games across various genres, ensuring there's something for everyone.
+                </p>
+                <p>
+                    All games on our platform are browser-based, allowing you to jump right into the action without any downloads or installations. Simply click and play!
+                </p>
             </div>
         </section>
     </main>
 
-    <script>
-        const gameFrame = document.getElementById('game-frame');
-        const loadingOverlay = document.getElementById('loading-overlay');
-        const fullscreenBtn = document.getElementById('fullscreen-btn');
-        const restartBtn = document.getElementById('restart-btn');
+    <footer class="bg-apple-gray-900 text-white py-8">
+        <div class="container mx-auto px-4 text-center">
+            <p>&copy; 2023 GameVerse. All rights reserved.</p>
+        </div>
+    </footer>
 
-        gameFrame.addEventListener('load', () => {
-            loadingOverlay.style.display = 'none';
-        });
-
-        fullscreenBtn.addEventListener('click', () => {
-            const container = document.querySelector('.game-container');
-            if (document.fullscreenEnabled) {
-                if (gameFrame.requestFullscreen) {
-                    gameFrame.requestFullscreen();
-                } else if (gameFrame.webkitRequestFullscreen) {
-                    gameFrame.webkitRequestFullscreen();
-                } else if (gameFrame.msRequestFullscreen) {
-                    gameFrame.msRequestFullscreen();
-                } else {
-                    // 降级方案：如果iframe全屏失败，尝试容器全屏
-                    container.requestFullscreen().catch(err => {
-                        console.log('全屏模式可能不受支持');
-                    });
-                }
-            }
-        });
-
-        restartBtn.addEventListener('click', () => {
-            loadingOverlay.style.display = 'flex';
-            gameFrame.src = gameFrame.src;
-        });
-
-        // 超时处理
-        setTimeout(() => {
-            if (loadingOverlay.style.display !== 'none') {
-                loadingOverlay.innerHTML = '<p class="text-white text-lg">Loading taking longer than expected. Please refresh the page.</p>';
-            }
-        }, 10000);
-    </script>
+    <script src="js/main.js"></script>
 </body>
 </html>
