@@ -1,7 +1,13 @@
 // Fetch games data
 async function fetchGames() {
     try {
-        const response = await fetch('./data/games.json');
+        // 首先检查是否有预加载的游戏数据
+        if (window.gamesData && window.gamesData.games && window.gamesData.games.length > 0) {
+            return window.gamesData.games;
+        }
+        
+        // 如果没有预加载数据，则通过fetch获取
+        const response = await fetch('../data/games.json');
         const data = await response.json();
         return data.games;
     } catch (error) {
