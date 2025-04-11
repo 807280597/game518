@@ -110,6 +110,36 @@
         </div>
     </footer>
 
+    <!-- 添加直接引用games.json的脚本 -->
+    <script>
+        // 预加载游戏数据
+        let gamesData = {
+            games: []
+        };
+        
+        // 创建一个script元素来加载JSON数据
+        const jsonScript = document.createElement('script');
+        jsonScript.src = 'data/games.json';
+        jsonScript.type = 'application/json';
+        
+        // 当JSON加载完成后解析数据
+        jsonScript.onload = function() {
+            try {
+                // 尝试解析JSON
+                const jsonText = this.textContent || this.text;
+                if (jsonText) {
+                    gamesData = JSON.parse(jsonText);
+                }
+            } catch (e) {
+                console.error('Error parsing games.json:', e);
+            }
+        };
+        
+        // 添加到文档中
+        document.head.appendChild(jsonScript);
+    </script>
+
+    <!-- 保持原有的main.js引用 -->
     <script src="js/main.js"></script>
 </body>
 </html>
