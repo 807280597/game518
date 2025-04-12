@@ -3,13 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GameVerse - Your Ultimate Gaming Destination</title>
-    <meta name="description" content="Discover and play the best online games at GameVerse. From action and adventure to puzzles and strategy games, find your next gaming obsession.">
+    <title>Game518</title>
+    <meta name="description" content="Discover and play the best online games at Game518. From action and adventure to puzzles and strategy games, find your next gaming obsession.">
     <link rel="canonical" href="https://gameverse.example.com/">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="css/styles.css">
+    <!-- 添加Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    
     <!-- 先加载配置文件 -->
     <script src="config/games-config.js"></script>
+    <!-- 添加Firebase配置文件 -->
+    <script src="config/firebase-config.js"></script>
     <script>
         tailwind.config = {
             theme: {
@@ -49,16 +55,34 @@
         <div class="container mx-auto px-4 py-6">
             <div class="flex flex-col md:flex-row justify-between items-center">
                 <div class="text-center md:text-left mb-4 md:mb-0">
-                    <a href="index.html" class="text-3xl font-bold tracking-tight">GameVerse</a>
-                    <p class="text-sm mt-1">Your Ultimate Gaming Destination</p>
+                    <a href="index.html" class="text-3xl font-bold tracking-tight">Game518</a>
                 </div>
-                <nav>
-                    <ul class="flex space-x-6">
-                        <li><a href="index.html" class="hover:text-apple-gray-200 transition-colors">Home</a></li>
-                        <li><a href="#categories" class="hover:text-apple-gray-200 transition-colors">Categories</a></li>
-                        <li><a href="#about" class="hover:text-apple-gray-200 transition-colors">About</a></li>
-                    </ul>
-                </nav>
+                
+                <!-- 添加搜索框 -->
+                <div class="w-full md:w-1/2 mx-auto">
+                    <div class="relative">
+                        <input type="text" id="game-search" placeholder="搜索游戏..." 
+                               class="w-full py-2 px-4 rounded-full bg-white text-apple-gray-900 focus:outline-none">
+                        <button id="search-button" class="absolute right-2 top-1/2 transform -translate-y-1/2 text-apple-blue">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            
+            <!-- 添加登录按钮 -->
+            <div class="mt-4 md:mt-0 md:ml-4">
+                <button id="login-button" class="bg-white text-apple-blue px-4 py-2 rounded-full font-medium hover:bg-apple-gray-100 transition-colors">
+                    谷歌登录
+                </button>
+                <div id="user-profile" class="hidden flex items-center">
+                    <img id="user-avatar" src="" alt="用户头像" class="w-8 h-8 rounded-full mr-2">
+                    <span id="user-name" class="text-white"></span>
+                    <button id="logout-button" class="ml-3 text-sm text-white hover:text-apple-gray-200 transition-colors">
+                        退出
+                    </button>
+                </div>
             </div>
         </div>
     </header>
@@ -115,6 +139,32 @@
         </div>
     </footer>
 
+    <!-- 在body标签底部添加 -->
     <script src="js/main.js"></script>
+    
+    <!-- Firebase脚本 -->
+    <script type="module">
+      // Import the functions you need from the SDKs you need
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js";
+      import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-analytics.js";
+      import { getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-auth.js";
+      
+      // 使用配置文件中的Firebase配置
+      const app = initializeApp(firebaseConfig);
+      const analytics = getAnalytics(app);
+      const auth = getAuth(app);
+      
+      // 将Firebase对象暴露给全局，以便main.js可以使用
+      window.firebaseAuth = {
+        auth: auth,
+        GoogleAuthProvider: GoogleAuthProvider,
+        signInWithPopup: signInWithPopup,
+        onAuthStateChanged: onAuthStateChanged,
+        signOut: signOut
+      };
+      
+      // 触发自定义事件，通知main.js Firebase已准备好
+      document.dispatchEvent(new Event('firebaseReady'));
+    </script>
 </body>
 </html>
