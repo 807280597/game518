@@ -14,10 +14,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // 初始化搜索功能
         initSearchFunction();
     }
-});
-
-// 等待Firebase准备好后初始化认证
-document.addEventListener('firebaseReady', function() {
+    
     // 初始化Firebase认证
     initFirebaseAuth();
 });
@@ -30,13 +27,17 @@ function initFirebaseAuth() {
     const userAvatar = document.getElementById('user-avatar');
     const userName = document.getElementById('user-name');
     
-    if (!loginButton || !logoutButton || !userProfile || !userAvatar || !userName) {
-        console.error('找不到用户界面元素，请检查HTML结构');
-        return;
+    // 检查是否在本地开发环境
+    const isLocalhost = window.location.hostname === 'localhost' || 
+                        window.location.hostname === '127.0.0.1' ||
+                        window.location.hostname.includes('192.168.');
+    
+    if (isLocalhost) {
+        console.log('本地开发环境：Firebase认证可能受限，请在Firebase控制台添加localhost到授权域名');
     }
     
     // 监听认证状态变化
-    window.firebaseAuth.onAuthStateChanged(window.firebaseAuth.auth, function(user) {
+    firebase.auth().onAuthStateChanged(function(user) {
         if (user) {
             // 用户已登录
             loginButton.classList.add('hidden');
@@ -58,37 +59,48 @@ function initFirebaseAuth() {
     
     // 登录按钮点击事件
     loginButton.addEventListener('click', function() {
-        // 创建Google认证提供者
-        const provider = new window.firebaseAuth.GoogleAuthProvider();
-        
-        // 使用弹出窗口方式登录
-        window.firebaseAuth.signInWithPopup(window.firebaseAuth.auth, provider)
-            .then((result) => {
-                // 登录成功
-                const user = result.user;
-                console.log('Google登录成功:', user.displayName);
-                
-                // 可以在这里保存用户信息到本地存储
-                localStorage.setItem('user', JSON.stringify({
-                    uid: user.uid,
-                    displayName: user.displayName,
-                    email: user.email,
-                    photoURL: user.photoURL
-                }));
-                
-                // 显示成功提示
-                showToast('登录成功！');
-            })
-            .catch((error) => {
-                // 登录失败
-                console.error('Google登录失败:', error);
-                showToast('登录失败，请重试');
-            });
+        try {
+            // 创建Google认证提供者
+            const provider = new firebase.auth.GoogleAuthProvider();
+            
+            // 使用弹出窗口方式登录
+            firebase.auth().signInWithPopup(provider)
+                .then((result) => {
+                    // 登录成功
+                    const user = result.user;
+                    console.log('Google登录成功:', user.displayName);
+                    
+                    // 可以在这里保存用户信息到本地存储
+                    localStorage.setItem('user', JSON.stringify({
+                        uid: user.uid,
+                        displayName: user.displayName,
+                        email: user.email,
+                        photoURL: user.photoURL
+                    }));
+                    
+                    // 显示成功提示
+                    showToast('登录成功！');
+                })
+                .catch((error) => {
+                    // 登录失败
+                    console.error('Google登录失败:', error);
+                    
+                    // 根据错误类型显示不同提示
+                    if (error.code === 'auth/unauthorized-domain') {
+                        showToast('登录失败：当前域名未授权。请在Firebase控制台添加此域名到授权域名列表。');
+                    } else {
+                        showToast('登录失败，请重试');
+                    }
+                });
+        } catch (error) {
+            console.error('登录过程发生错误:', error);
+            showToast('登录过程发生错误，请检查控制台');
+        }
     });
     
     // 退出按钮点击事件
     logoutButton.addEventListener('click', function() {
-        window.firebaseAuth.signOut(window.firebaseAuth.auth)
+        firebase.auth().signOut()
             .then(() => {
                 // 退出成功
                 console.log('退出成功');
