@@ -2,8 +2,8 @@
 
 // 游戏分类列表
 const GAME_CATEGORIES = [
-    "动作", "冒险", "街机", "棋盘", "卡牌", "赛车", "益智", "角色扮演", 
-    "射击", "模拟", "体育", "策略", "文字", "休闲", "多人"
+    "action", "adventure", "arcade", "board", "card", "racing", "puzzle", "rpg", 
+    "shooter", "simulation", "sports", "strategy", "word", "casual", "multiplayer"
 ];
 
 // 根据游戏标题和描述自动判断游戏分类
@@ -12,21 +12,21 @@ function determineGameCategory(title, description) {
     
     // 定义关键词与分类的映射
     const categoryKeywords = {
-        "动作": ["动作", "格斗", "打斗", "战斗", "combat", "fight", "action"],
-        "冒险": ["冒险", "探索", "探险", "adventure", "explore"],
-        "街机": ["街机", "复古", "经典", "arcade", "retro", "classic"],
-        "棋盘": ["棋盘", "棋类", "象棋", "围棋", "board", "chess"],
-        "卡牌": ["卡牌", "纸牌", "扑克", "card", "poker"],
-        "赛车": ["赛车", "驾驶", "飙车", "racing", "drive", "car"],
-        "益智": ["益智", "解谜", "谜题", "智力", "puzzle", "brain"],
-        "角色扮演": ["角色", "扮演", "rpg", "role"],
-        "射击": ["射击", "枪战", "射手", "shoot", "gun", "shooter"],
-        "模拟": ["模拟", "经营", "建设", "simulation", "simulator", "build"],
-        "体育": ["体育", "运动", "足球", "篮球", "sports", "football", "basketball"],
-        "策略": ["策略", "战略", "塔防", "strategy", "tower defense"],
-        "文字": ["文字", "阅读", "故事", "text", "word", "story"],
-        "休闲": ["休闲", "轻松", "简单", "casual", "simple", "easy"],
-        "多人": ["多人", "合作", "对战", "multiplayer", "coop", "versus"]
+        "action": ["动作", "格斗", "打斗", "战斗", "combat", "fight", "action"],
+        "adventure": ["冒险", "探索", "探险", "adventure", "explore"],
+        "arcade": ["街机", "复古", "经典", "arcade", "retro", "classic"],
+        "board": ["棋盘", "棋类", "象棋", "围棋", "board", "chess"],
+        "card": ["卡牌", "纸牌", "扑克", "card", "poker"],
+        "racing": ["赛车", "驾驶", "飙车", "racing", "drive", "car"],
+        "puzzle": ["益智", "解谜", "谜题", "智力", "puzzle", "brain"],
+        "rpg": ["角色", "扮演", "rpg", "role"],
+        "shooter": ["射击", "枪战", "射手", "shoot", "gun", "shooter"],
+        "simulation": ["模拟", "经营", "建设", "simulation", "simulator", "build"],
+        "sports": ["体育", "运动", "足球", "篮球", "sports", "football", "basketball"],
+        "strategy": ["策略", "战略", "塔防", "strategy", "tower defense"],
+        "word": ["文字", "阅读", "故事", "text", "word", "story"],
+        "casual": ["休闲", "轻松", "简单", "casual", "simple", "easy"],
+        "multiplayer": ["多人", "合作", "对战", "multiplayer", "coop", "versus"]
     };
     
     // 计算每个分类的匹配分数
@@ -87,6 +87,16 @@ function formatCurrentDate() {
 // 游戏数据存储
 let generatedGames = [];
 
+// 从HTML中提取图片URL
+function extractImageUrl(htmlString) {
+    const imgMatch = htmlString.match(/<img[^>]+src=["']([^"']+)["']/);
+    if (imgMatch && imgMatch[1]) {
+        // 移除URL中的调整参数（如 ?resize= 和 &ssl=1）
+        return imgMatch[1].split('?')[0];
+    }
+    return htmlString; // 如果不是img标签，返回原始输入
+}
+
 // 创建游戏JSON对象
 function createGameJson(gameData) {
     const gameId = generateGameId();
@@ -95,12 +105,16 @@ function createGameJson(gameData) {
     const rating = gameData.rating || generateRandomRating();
     const playCount = gameData.playCount || generateRandomPlayCount();
     
+    // 保留换行符，将 \n 转换为实际的换行
+    const description = gameData.description.replace(/\r\n/g, '\n').replace(/\r/g, '\n');
+    const instructions = gameData.instructions ? gameData.instructions.replace(/\r\n/g, '\n').replace(/\r/g, '\n') : description;
+    
     const gameJson = {
         id: gameId,
         title: gameData.title,
-        shortDescription: gameData.description,
-        fullDescription: gameData.instructions || gameData.description,
-        imageUrl: gameData.imageUrl || "https://via.placeholder.com/800x450?text=" + encodeURIComponent(gameData.title),
+        shortDescription: description,
+        fullDescription: instructions,
+        imageUrl: extractImageUrl(gameData.imageUrl) || "https://via.placeholder.com/800x450?text=" + encodeURIComponent(gameData.title),
         category: category,
         rating: parseFloat(rating),
         playCount: parseInt(playCount),
@@ -149,24 +163,33 @@ document.addEventListener('DOMContentLoaded', function() {
     const outputContainer = document.getElementById('json-output');
     const gameList = document.getElementById('game-list');
     const noGamesMsg = document.getElementById('no-games');
+    const clearFormButton = document.getElementById('clear-form');
+    if (clearFormButton) {
+        clearFormButton.addEventListener('click', function() {
+            if (confirm('确定要清空表单内容吗？')) {
+                gameForm.reset();
+            }
+        });
+    }
     
     if (gameForm) {
         gameForm.addEventListener('submit', function(e) {
             e.preventDefault();
             
             const gameData = {
-                title: document.getElementById('game-title').value,
-                description: document.getElementById('game-description').value,
-                instructions: document.getElementById('game-instructions').value,
-                imageUrl: document.getElementById('game-image').value,
-                gameUrl: document.getElementById('game-url').value,
-                category: document.getElementById('game-category').value
+                title: document.getElementById('game-title').value || '未命名游戏',
+                description: document.getElementById('game-description').value || '暂无描述',
+                instructions: document.getElementById('game-instructions').value || '',
+                imageUrl: document.getElementById('game-image').value || '',
+                gameUrl: document.getElementById('game-url').value || '',
+                category: document.getElementById('game-category').value || ''
             };
             
-            if (!gameData.title || !gameData.description) {
-                alert('请至少填写游戏标题和描述！');
-                return;
-            }
+            // 删除必填验证
+            // if (!gameData.title || !gameData.description) {
+            //     alert('请至少填写游戏标题和描述！');
+            //     return;
+            // }
             
             const gameJson = createGameJson(gameData);
             
@@ -191,8 +214,8 @@ document.addEventListener('DOMContentLoaded', function() {
             // 更新JSON输出
             outputContainer.textContent = generateGameJsonCode();
             
-            // 重置表单
-            gameForm.reset();
+            // 删除这一行，这样表单内容就会保留
+            // gameForm.reset();
         });
     }
     

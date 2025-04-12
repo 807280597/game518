@@ -48,25 +48,8 @@
     </style>
 </head>
 <body class="bg-apple-gray-100 min-h-screen">
-    <header class="bg-apple-blue text-white shadow-md">
-        <div class="container mx-auto px-4 py-6">
-            <div class="flex flex-col md:flex-row justify-between items-center">
-                <div class="text-center md:text-left mb-4 md:mb-0">
-                    <a href="index.html" class="text-3xl font-bold tracking-tight">GameVerse</a>
-                    <p class="text-sm mt-1">游戏信息转JSON工具</p>
-                </div>
-                <nav>
-                    <ul class="flex space-x-6">
-                        <li><a href="index.html" class="hover:text-apple-gray-200 transition-colors">返回首页</a></li>
-                    </ul>
-                </nav>
-            </div>
-        </div>
-    </header>
-
     <main class="container mx-auto px-4 py-8">
-        <h1 class="text-3xl font-bold mb-8 text-center">游戏信息转JSON工具</h1>
-        
+        <!-- 删除主标题 -->
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
             <!-- 左侧：表单 -->
             <div>
@@ -76,12 +59,12 @@
                     <form id="game-form" class="space-y-4">
                         <div>
                             <label for="game-title" class="block text-sm font-medium text-apple-gray-700 mb-1">游戏标题 *</label>
-                            <input type="text" id="game-title" class="w-full px-3 py-2 border border-apple-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-apple-blue" required>
+                            <input type="text" id="game-title" class="w-full px-3 py-2 border border-apple-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-apple-blue">
                         </div>
                         
                         <div>
                             <label for="game-description" class="block text-sm font-medium text-apple-gray-700 mb-1">游戏描述 *</label>
-                            <textarea id="game-description" rows="3" class="w-full px-3 py-2 border border-apple-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-apple-blue" required></textarea>
+                            <textarea id="game-description" rows="3" class="w-full px-3 py-2 border border-apple-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-apple-blue"></textarea>
                         </div>
                         
                         <div>
@@ -110,9 +93,15 @@
                         </div>
                         
                         <div class="pt-4">
-                            <button type="submit" class="w-full bg-apple-blue hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg transition-colors">
-                                添加游戏
-                            </button>
+                            <!-- 表单按钮组 -->
+                            <div class="flex space-x-4 mt-6">
+                                <button type="submit" class="bg-apple-blue text-white px-6 py-2 rounded-lg hover:bg-blue-600 transition-colors">
+                                    添加游戏
+                                </button>
+                                <button type="button" id="clear-form" class="bg-apple-gray-500 text-white px-6 py-2 rounded-lg hover:bg-apple-gray-600 transition-colors">
+                                    清空表单
+                                </button>
+                            </div>
                         </div>
                     </form>
                 </div>

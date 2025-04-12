@@ -37,6 +37,7 @@ function initFirebaseAuth() {
     }
     
     // 监听认证状态变化
+    // 监听认证状态变化
     firebase.auth().onAuthStateChanged(function(user) {
         if (user) {
             // 用户已登录
@@ -47,7 +48,18 @@ function initFirebaseAuth() {
             userAvatar.src = user.photoURL || 'img/default-avatar.png';
             userName.textContent = user.displayName || '用户';
             
-            console.log('用户已登录:', user.displayName);
+            // 打印完整的用户信息
+            console.log('用户信息:', {
+                uid: user.uid,
+                email: user.email,
+                displayName: user.displayName,
+                photoURL: user.photoURL,
+                emailVerified: user.emailVerified,
+                phoneNumber: user.phoneNumber,
+                creationTime: user.metadata.creationTime,
+                lastSignInTime: user.metadata.lastSignInTime
+            });
+            
         } else {
             // 用户未登录
             loginButton.classList.remove('hidden');
@@ -371,8 +383,8 @@ function createGameCard(game) {
     card.className = 'game-card bg-white rounded-xl shadow-lg overflow-hidden flex flex-col h-full';
     
     card.innerHTML = `
-        <div class="aspect-video w-full">
-            <img src="${game.imageUrl}" alt="${game.title}" class="w-full h-full object-cover">
+        <div class="relative w-full pt-[56.25%]">
+            <img src="${game.imageUrl}" alt="${game.title}" class="absolute top-0 left-0 w-full h-full object-cover">
         </div>
         <div class="p-4 flex flex-col flex-grow">
             <h3 class="text-xl font-bold h-14 line-clamp-2">${game.title}</h3>
