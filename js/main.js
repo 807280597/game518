@@ -476,7 +476,6 @@ function performSearch(query) {
 }
 
 // 初始化游戏详情页
-// 在 initGamePage 函数中添加分类导航
 async function initGamePage() {
     try {
         // 获取URL参数中的游戏ID
@@ -496,9 +495,7 @@ async function initGamePage() {
         // 渲染游戏详情
         renderGameDetails(game);
         
-        // 初始化分类导航
-        initCategoriesNavigation();
-        
+        // 移除了分类导航的初始化
     } catch (error) {
         console.error('Error initializing game page:', error);
     }
