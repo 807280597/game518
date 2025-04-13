@@ -11,3 +11,16 @@ const firebaseConfig = {
 
 // 初始化Firebase
 firebase.initializeApp(firebaseConfig);
+
+// 初始化数据库引用
+const database = firebase.database();
+
+// 创建messages节点（如果不存在）
+database.ref('messages').once('value')
+    .then((snapshot) => {
+        if (!snapshot.exists()) {
+            database.ref('messages').set({
+                created: new Date().toISOString()
+            });
+        }
+    });
