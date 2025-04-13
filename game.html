@@ -98,13 +98,17 @@
                 <h1 id="game-title" class="text-3xl font-bold mb-2 text-white"></h1>
                 <p id="game-description" class="text-gray-400 mb-4"></p>
                 
+                <!-- 添加游戏图片 -->
+                <img id="game-image" class="w-full rounded-lg mb-4 hidden" alt="">
+                
                 <div class="flex items-center mb-6">
                     <span id="game-category" class="bg-apple-blue text-white px-3 py-1.5 rounded-full text-sm mr-4"></span>
-                    <div id="game-rating" class="flex items-center text-apple-yellow mr-4">
+                    <!-- 修改评分元素结构 -->
+                    <div class="flex items-center text-apple-yellow mr-4">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                             <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
                         </svg>
-                        <span class="ml-1 text-lg font-medium">4.5</span>
+                        <span id="game-rating" class="ml-1 text-lg font-medium"></span>
                     </div>
                     <div id="game-play-count" class="text-gray-400"></div>
                 </div>
@@ -121,6 +125,14 @@
                 <div id="game-full-description" class="prose max-w-none text-gray-300">
                     <!-- 游戏详细描述将在这里加载 -->
                 </div>
+            </div>
+        </div>
+        
+        <!-- 添加相关游戏部分 -->
+        <div class="mb-8">
+            <h2 class="text-2xl font-bold mb-4 text-white">相关游戏</h2>
+            <div id="related-games" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4">
+                <!-- 相关游戏将在这里加载 -->
             </div>
         </div>
     </main>

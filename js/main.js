@@ -261,7 +261,7 @@ function initSearchFunction() {
                 resultItem.innerHTML = `
                     <img src="${game.imageUrl}" alt="${game.title}" class="w-12 h-12 object-cover rounded mr-3">
                     <div>
-                        <div class="font-medium">${game.title}</div>
+                        <div class="font-medium text-gray-900">${game.title}</div>
                         <div class="text-sm text-apple-gray-600">${game.category}</div>
                     </div>
                 `;
