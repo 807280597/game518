@@ -298,7 +298,34 @@ function initSearchFunction() {
 }
 
 // 初始化首页
-async function initHomePage() {
+// 页面初始化函数
+document.addEventListener('DOMContentLoaded', function() {
+    // 检测当前页面类型
+    const isHomePage = document.querySelector('#games-container') !== null;
+    const isGameDetailPage = document.querySelector('#game-iframe-container') !== null;
+    
+    // 根据页面类型执行不同的初始化
+    if (isHomePage) {
+        initHomePage();
+    }
+    
+    if (isGameDetailPage) {
+        initGameDetailPage();
+    }
+    
+    // 通用初始化（两个页面都需要的功能）
+    initCommonFeatures();
+});
+
+// 首页初始化
+function initHomePage() {
+    const gamesContainer = document.getElementById('games-container');
+    if (!gamesContainer) {
+        console.warn('游戏容器元素不存在，无法初始化首页');
+        return;
+    }
+    
+    // 首页特有的初始化代码
     try {
         const games = gamesConfig.games;
         
