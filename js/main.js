@@ -1,25 +1,3 @@
-// 页面加载完成后执行
-document.addEventListener('DOMContentLoaded', function() {
-    // 检查是否在游戏详情页
-    const isGamePage = window.location.pathname.includes('game.html');
-    
-    if (isGamePage) {
-        // 初始化游戏详情页
-        initGamePage();
-        // 在详情页也初始化搜索功能
-        initSearchFunction();
-    } else {
-        // 初始化首页
-        initHomePage();
-        // 初始化搜索功能
-        initSearchFunction();
-    }
-    
-    // 初始化Firebase认证
-    document.addEventListener('firebaseReady', function() {
-        initFirebaseAuth();
-    });
-});
 
 // 初始化Firebase认证
 function initFirebaseAuth() {
@@ -43,14 +21,14 @@ function initFirebaseAuth() {
         console.log('本地开发环境：Firebase认证可能受限，请在Firebase控制台添加localhost到授权域名');
     }
     
-    // 使用window.firebaseAuth代替firebase
-    if (!window.firebaseAuth || !window.firebaseAuth.auth) {
+    // 检查Firebase是否已初始化
+    if (typeof firebase === 'undefined' || !firebase.auth) {
         console.error('Firebase Auth 未初始化');
         return;
     }
     
     // 监听认证状态变化
-    window.firebaseAuth.onAuthStateChanged(function(user) {
+    firebase.auth().onAuthStateChanged(function(user) {
         if (user) {
             // 用户已登录
             if (loginButton) loginButton.classList.add('hidden');
@@ -68,8 +46,8 @@ function initFirebaseAuth() {
                 photoURL: user.photoURL,
                 emailVerified: user.emailVerified,
                 phoneNumber: user.phoneNumber,
-                creationTime: user.metadata.creationTime,
-                lastSignInTime: user.metadata.lastSignInTime
+                creationTime: user.metadata?.creationTime,
+                lastSignInTime: user.metadata?.lastSignInTime
             });
             
         } else {
@@ -86,10 +64,10 @@ function initFirebaseAuth() {
         loginButton.addEventListener('click', function() {
             try {
                 // 创建Google认证提供者
-                const provider = new window.firebaseAuth.GoogleAuthProvider();
+                const provider = new firebase.auth.GoogleAuthProvider();
                 
                 // 使用弹出窗口方式登录
-                window.firebaseAuth.signInWithPopup(window.firebaseAuth.auth, provider)
+                firebase.auth().signInWithPopup(provider)
                     .then((result) => {
                         // 登录成功
                         const user = result.user;
@@ -127,7 +105,7 @@ function initFirebaseAuth() {
     // 退出按钮点击事件
     if (logoutButton) {
         logoutButton.addEventListener('click', function() {
-            window.firebaseAuth.signOut(window.firebaseAuth.auth)
+            firebase.auth().signOut()
                 .then(() => {
                     // 退出成功
                     console.log('退出成功');
@@ -304,196 +282,107 @@ document.addEventListener('DOMContentLoaded', function() {
     const isHomePage = document.querySelector('#games-container') !== null;
     const isGameDetailPage = document.querySelector('#game-iframe-container') !== null;
     
+    // 初始化搜索功能（两个页面都需要）
+    initSearchFunction();
+    
     // 根据页面类型执行不同的初始化
     if (isHomePage) {
+        console.log('初始化首页');
         initHomePage();
-    }
-    
-    if (isGameDetailPage) {
+    } else if (isGameDetailPage) {
+        console.log('初始化游戏详情页');
         initGameDetailPage();
     }
-    
-    // 通用初始化（两个页面都需要的功能）
-    initCommonFeatures();
 });
 
-// 首页初始化
-function initHomePage() {
-    const gamesContainer = document.getElementById('games-container');
-    if (!gamesContainer) {
-        console.warn('游戏容器元素不存在，无法初始化首页');
-        return;
-    }
+// 游戏详情页初始化
+function initGameDetailPage() {
+    // 获取URL参数中的游戏ID
+    const urlParams = new URLSearchParams(window.location.search);
+    const gameId = urlParams.get('id');
     
-    // 首页特有的初始化代码
-    try {
-        const games = gamesConfig.games;
-        
-        // 定义一组鲜艳的颜色
-        const colors = [
-            'bg-blue-500',
-            'bg-green-500',
-            'bg-purple-500',
-            'bg-pink-500',
-            'bg-yellow-500',
-            'bg-red-500',
-            'bg-indigo-500',
-            'bg-teal-500',
-            'bg-orange-500',
-            'bg-cyan-500'
-        ];
-        
-        // 添加分类导航
-        const categoriesSection = document.createElement('section');
-        categoriesSection.className = 'categories-drawer fixed left-0 top-20 z-30 h-full';
-        
-        // 定义彩色分类图标
-        const categoryIcons = [
-            // Action - 红色闪电
-            '<svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="#FF3B30"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>',
-            // Adventure - 绿色探险
-            '<svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="#34C759"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064"/></svg>',
-            // Puzzle - 紫色拼图
-            '<svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="#AF52DE"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 4a2 2 0 114 0v1a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-1a2 2 0 100 4h1a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-1a2 2 0 10-4 0v1a1 1 0 01-1 1H7a1 1 0 01-1-1v-3a1 1 0 00-1-1H4a2 2 0 110-4h1a1 1 0 001-1V7a1 1 0 011-1h3a1 1 0 001-1V4z"/></svg>',
-            // Racing - 橙色箭头
-            '<svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="#FF9500"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/></svg>',
-            // Sports - 蓝色球类
-            '<svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="#007AFF"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 10a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1h-4a1 1 0 01-1-1v-4z"/></svg>',
-            // Strategy - 青色棋盘
-            '<svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="#5AC8FA"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"/></svg>'
-        ];
-        
-        // 创建抽屉HTML结构
-        let drawerHTML = `
-            <div class="drawer-container group">
-                <div class="drawer-icons bg-[#1A1A2A] rounded-r-lg shadow-lg py-2">
-                    <a href="#" class="category-icon-btn flex items-center justify-center p-3 text-white hover:bg-[#252535] transition-colors" data-category="ALL">
-                        <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="#FFCC00">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
-                        </svg>
-                    </a>
-        `;
-        
-        // 添加分类图标
-        Array.from(new Set(games.map(game => game.category))).forEach((category, index) => {
-            drawerHTML += `
-                <a href="#" class="category-icon-btn flex items-center justify-center p-3 text-white hover:bg-[#252535] transition-colors" data-category="${category}">
-                    ${categoryIcons[index % categoryIcons.length]}
-                </a>
-            `;
-        });
-        
-        drawerHTML += `
-                </div>
-                <div class="drawer-content hidden group-hover:block absolute left-full top-0 bg-[#1A1A2A] rounded-r-lg shadow-lg py-2 min-w-[150px]">
-                    <a href="#" class="category-btn flex items-center p-3 text-white hover:bg-[#252535] transition-colors" data-category="ALL">
-                        <span class="ml-2">ALL</span>
-                    </a>
-        `;
-        
-        // 添加分类名称
-        Array.from(new Set(games.map(game => game.category))).forEach((category, index) => {
-            drawerHTML += `
-                <a href="#" class="category-btn flex items-center p-3 text-white hover:bg-[#252535] transition-colors" data-category="${category}">
-                    <span class="ml-2">${category}</span>
-                </a>
-            `;
-        });
-        
-        drawerHTML += `
-                </div>
-            </div>
-        `;
-        
-        categoriesSection.innerHTML = drawerHTML;
-        
-        // 添加CSS样式
-        const drawerStyle = document.createElement('style');
-        drawerStyle.textContent = `
-            .categories-drawer {
-                transition: transform 0.3s ease;
-            }
-            .drawer-container {
-                position: relative;
-            }
-            .drawer-content {
-                transition: opacity 0.3s ease, visibility 0.3s;
-            }
-            /* 调整主内容区域的左边距，为抽屉腾出空间 */
-            main.container {
-                margin-left: 60px;
-                width: calc(100% - 60px);
-            }
-        `;
-        document.head.appendChild(drawerStyle);
-        
-        // 添加到body
-        document.body.appendChild(categoriesSection);
-        
-        // 添加分类点击事件
-        categoriesSection.addEventListener('click', (e) => {
-            const categoryBtn = e.target.closest('[data-category]');
-            if (categoryBtn) {
-                e.preventDefault();
-                const category = categoryBtn.dataset.category;
-                
-                // 更新分类标题
-                updateCategoryTitle(category);
-                
-                // 如果点击的是ALL，显示所有游戏
-                if (category === 'ALL') {
-                    renderGameCards(games);
-                } else {
-                    const filteredGames = games.filter(game => game.category === category);
-                    renderGameCards(filteredGames);
-                }
-                
-                // 获取游戏容器元素
-                const gamesContainer = document.getElementById('games-container');
-                // 只有当元素存在时才滚动
-                if (gamesContainer) {
-                    gamesContainer.scrollIntoView({ behavior: 'smooth' });
-                }
-            }
-        });
-        
-        // 添加分类标题区域
-        const categoryTitleSection = document.createElement('div');
-        categoryTitleSection.id = 'category-title';
-        categoryTitleSection.className = 'px-4 py-3 mb-4';
-        categoryTitleSection.innerHTML = `
-            <h3 class="text-xl font-bold text-apple-white">All Games</h3>
-            <p class="text-apple-gray-300 text-base mt-1"><span id="games-count"></span> games available</p>
-        `;
-        
-        // 获取游戏容器元素
-        const gamesContainer = document.getElementById('games-container');
-        
-        // 检查游戏容器是否存在
-        if (gamesContainer) {
-            // 插入分类标题到游戏列表前
-            gamesContainer.parentNode.insertBefore(categoryTitleSection, gamesContainer);
+    if (gameId) {
+        // 从游戏配置中查找对应ID的游戏
+        const game = gamesConfig.games.find(g => g.id == gameId);
+        if (game) {
+            // 更新页面标题
+            document.title = `${game.title} - Game518`;
             
-            // 渲染游戏卡片
-            renderGameCards(games);
+            // 更新游戏标题和描述
+            const gameTitle = document.getElementById('game-title');
+            if (gameTitle) gameTitle.textContent = game.title;
             
-            // 更新游戏数量
-            const gamesCount = document.getElementById('games-count');
-            if (gamesCount) {
-                gamesCount.textContent = games.length;
+            const gameDescription = document.getElementById('game-description');
+            if (gameDescription) gameDescription.textContent = game.shortDescription;
+            
+            // 更新游戏分类和评分
+            const gameCategory = document.getElementById('game-category');
+            if (gameCategory) gameCategory.textContent = game.category;
+            
+            const gameRating = document.getElementById('game-rating');
+            if (gameRating) gameRating.textContent = game.rating;
+            
+            // 更新游戏播放次数
+            const gamePlayCount = document.getElementById('game-play-count');
+            if (gamePlayCount) gamePlayCount.textContent = `${game.playCount} plays`;
+            
+            // 添加游戏iframe
+            const gameIframeContainer = document.getElementById('game-iframe-container');
+            if (gameIframeContainer) {
+                gameIframeContainer.innerHTML = `
+                    <iframe src="${game.iframeUrl}" title="${game.title}" class="w-full h-full border-0" allowfullscreen></iframe>
+                `;
             }
+            
+            // 更新游戏完整描述
+            const gameFullDescription = document.getElementById('game-full-description');
+            if (gameFullDescription) {
+                gameFullDescription.innerHTML = game.fullDescription.replace(/\n/g, '<br>');
+            }
+            
+            // 加载相关游戏
+            loadRelatedGames(game.category, game.id);
         } else {
-            console.error('游戏容器元素不存在，无法初始化首页');
+            console.error('未找到ID为', gameId, '的游戏');
         }
-    } catch (error) {
-        console.error('Error initializing home page:', error);
+    } else {
+        console.error('URL中未找到游戏ID');
     }
 }
 
-// 从URL获取游戏ID
-function getGameIdFromUrl() {
-    const urlParams = new URLSearchParams(window.location.search);
-    return urlParams.get('id');
+// 加载相关游戏
+function loadRelatedGames(category, currentGameId) {
+    const relatedGamesContainer = document.getElementById('related-games');
+    if (!relatedGamesContainer) return;
+    
+    // 查找同类别的游戏，排除当前游戏
+    const relatedGames = gamesConfig.games
+        .filter(game => game.category === category && game.id != currentGameId)
+        .slice(0, 6); // 最多显示6个相关游戏
+    
+    if (relatedGames.length > 0) {
+        relatedGamesContainer.innerHTML = relatedGames.map(game => `
+            <a href="game.html?id=${game.id}" class="game-card block bg-[#2A2A3C] rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-all">
+                <div class="relative aspect-video">
+                    <img src="${game.imageUrl}" alt="${game.title}" class="w-full h-full object-cover">
+                </div>
+                <div class="p-3">
+                    <h3 class="text-white text-sm font-medium line-clamp-1">${game.title}</h3>
+                    <div class="flex items-center justify-between mt-2">
+                        <span class="text-xs text-apple-gray-400">${game.category}</span>
+                        <div class="flex items-center text-apple-yellow">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                            </svg>
+                            <span class="ml-1 text-xs">${game.rating}</span>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        `).join('');
+    } else {
+        relatedGamesContainer.innerHTML = '<p class="text-apple-gray-400 text-center">没有找到相关游戏</p>';
+    }
 }
 
 // 渲染游戏卡片
@@ -786,4 +675,205 @@ function loadRelatedGames(currentGame) {
     } catch (error) {
         console.error('加载相关游戏时出错:', error);
     }
+}
+
+// 添加缺失的函数定义
+// 游戏详情页初始化
+function initGameDetailPage() {
+    console.log('初始化游戏详情页');
+    // 获取URL参数中的游戏ID
+    const urlParams = new URLSearchParams(window.location.search);
+    const gameId = urlParams.get('id');
+    
+    if (gameId) {
+        // 从游戏配置中查找对应ID的游戏
+        const game = gamesConfig.games.find(g => g.id == gameId);
+        if (game) {
+            // 更新页面标题
+            document.title = `${game.title} - Game518`;
+            
+            // 更新游戏标题和描述
+            const gameTitle = document.getElementById('game-title');
+            if (gameTitle) gameTitle.textContent = game.title;
+            
+            const gameDescription = document.getElementById('game-description');
+            if (gameDescription) gameDescription.textContent = game.shortDescription;
+            
+            // 更新游戏分类和评分
+            const gameCategory = document.getElementById('game-category');
+            if (gameCategory) gameCategory.textContent = game.category;
+            
+            const gameRating = document.getElementById('game-rating');
+            if (gameRating) gameRating.textContent = game.rating;
+            
+            // 更新游戏播放次数
+            const gamePlayCount = document.getElementById('game-play-count');
+            if (gamePlayCount) gamePlayCount.textContent = `${game.playCount} plays`;
+            
+            // 添加游戏iframe
+            const gameIframeContainer = document.getElementById('game-iframe-container');
+            if (gameIframeContainer) {
+                gameIframeContainer.innerHTML = `
+                    <iframe src="${game.iframeUrl}" title="${game.title}" class="w-full h-full border-0" allowfullscreen></iframe>
+                `;
+            }
+            
+            // 更新游戏完整描述
+            const gameFullDescription = document.getElementById('game-full-description');
+            if (gameFullDescription) {
+                gameFullDescription.innerHTML = game.fullDescription.replace(/\n/g, '<br>');
+            }
+            
+            // 加载相关游戏
+            loadRelatedGames(game.category, game.id);
+        } else {
+            console.error('未找到ID为', gameId, '的游戏');
+        }
+    } else {
+        console.error('URL中未找到游戏ID');
+    }
+}
+
+// 加载相关游戏
+function loadRelatedGames(category, currentGameId) {
+    const relatedGamesContainer = document.getElementById('related-games');
+    if (!relatedGamesContainer) return;
+    
+    // 查找同类别的游戏，排除当前游戏
+    const relatedGames = gamesConfig.games
+        .filter(game => game.category === category && game.id != currentGameId)
+        .slice(0, 6); // 最多显示6个相关游戏
+    
+    if (relatedGames.length > 0) {
+        relatedGamesContainer.innerHTML = relatedGames.map(game => `
+            <a href="game.html?id=${game.id}" class="game-card block bg-[#2A2A3C] rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-all">
+                <div class="relative aspect-video">
+                    <img src="${game.imageUrl}" alt="${game.title}" class="w-full h-full object-cover">
+                </div>
+                <div class="p-3">
+                    <h3 class="text-white text-sm font-medium line-clamp-1">${game.title}</h3>
+                    <div class="flex items-center justify-between mt-2">
+                        <span class="text-xs text-apple-gray-400">${game.category}</span>
+                        <div class="flex items-center text-apple-yellow">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                            </svg>
+                            <span class="ml-1 text-xs">${game.rating}</span>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        `).join('');
+    } else {
+        relatedGamesContainer.innerHTML = '<p class="text-apple-gray-400 text-center">没有找到相关游戏</p>';
+    }
+}
+
+// 通用功能初始化
+function initCommonFeatures() {
+    console.log('初始化通用功能');
+    // 初始化搜索功能
+    initSearchFunction();
+    
+    // 初始化Firebase认证
+    initFirebaseAuth();
+}
+
+// 添加首页初始化函数
+function initHomePage() {
+    console.log('初始化首页内容');
+    
+    // 获取游戏容器元素
+    const gamesContainer = document.getElementById('games-container');
+    if (!gamesContainer) {
+        console.warn('游戏容器元素不存在，无法初始化首页');
+        return;
+    }
+    
+    // 渲染所有游戏卡片
+    renderGameCards(gamesConfig.games);
+    
+    // 初始化分类导航（如果存在）
+    const categoriesSection = document.getElementById('categories');
+    if (categoriesSection) {
+        initCategoriesNav();
+    }
+    
+    // 检查URL中是否有搜索参数
+    const urlParams = new URLSearchParams(window.location.search);
+    const searchQuery = urlParams.get('search');
+    if (searchQuery) {
+        // 如果有搜索参数，执行搜索
+        const searchInput = document.getElementById('game-search');
+        if (searchInput) {
+            searchInput.value = searchQuery;
+            performSearch(searchQuery);
+        }
+    }
+}
+
+// 初始化分类导航
+function initCategoriesNav() {
+    // 获取所有游戏分类
+    const categories = Array.from(new Set(gamesConfig.games.map(game => game.category)));
+    
+    // 获取分类容器
+    const categoriesSection = document.getElementById('categories');
+    if (!categoriesSection) return;
+    
+    // 创建分类导航HTML
+    let categoriesHTML = `
+        <div class="container mx-auto px-4">
+            <h2 class="text-2xl font-bold mb-6 text-white">游戏分类</h2>
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+                <a href="#" class="category-btn bg-[#2A2A3C] hover:bg-[#3A3A4C] text-white rounded-lg p-4 text-center transition-colors" data-category="ALL">
+                    所有游戏
+                </a>
+    `;
+    
+    // 添加每个分类
+    categories.forEach(category => {
+        categoriesHTML += `
+            <a href="#" class="category-btn bg-[#2A2A3C] hover:bg-[#3A3A4C] text-white rounded-lg p-4 text-center transition-colors" data-category="${category}">
+                ${category.charAt(0).toUpperCase() + category.slice(1)}
+            </a>
+        `;
+    });
+    
+    categoriesHTML += `
+            </div>
+        </div>
+    `;
+    
+    // 设置分类导航HTML
+    categoriesSection.innerHTML = categoriesHTML;
+    
+    // 添加分类按钮点击事件
+    document.querySelectorAll('.category-btn').forEach(btn => {
+        btn.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            // 获取选中的分类
+            const category = this.getAttribute('data-category');
+            
+            // 过滤游戏
+            if (category === 'ALL') {
+                renderGameCards(gamesConfig.games);
+            } else {
+                const filteredGames = gamesConfig.games.filter(game => game.category === category);
+                renderGameCards(filteredGames);
+            }
+            
+            // 更新分类标题
+            updateCategoryTitle(category);
+            
+            // 高亮当前选中的分类
+            document.querySelectorAll('.category-btn').forEach(btn => {
+                btn.classList.remove('bg-apple-blue');
+                btn.classList.add('bg-[#2A2A3C]');
+            });
+            this.classList.remove('bg-[#2A2A3C]');
+            this.classList.add('bg-apple-blue');
+        });
+    });
 }
