@@ -419,7 +419,7 @@ function initGameDetailPage() {
     
     // 加载相关游戏
     loadRelatedGames(game.category, game.id);
-} 
+}
 
 // 加载相关游戏
 function loadRelatedGames(category, currentGameId) {
