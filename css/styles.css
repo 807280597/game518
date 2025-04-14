@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /* Custom styles beyond Tailwind */
 html {
     scroll-behavior: smooth;
@@ -46,4 +47,54 @@ html {
 
 .category-btn:hover {
     transform: translateY(-2px);
+=======
+/* Custom styles beyond Tailwind */
+html {
+    scroll-behavior: smooth;
+}
+
+.game-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.game-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+.game-iframe {
+    width: 100%;
+    height: 100%;
+    min-height: 600px;
+    border: none;
+}
+
+@media (max-width: 768px) {
+    .game-iframe {
+        min-height: 400px;
+    }
+}
+
+.play-count {
+    animation: increment 1s ease-out;
+}
+
+@keyframes increment {
+    from {
+        opacity: 0.5;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.category-btn {
+    transition: all 0.3s ease;
+}
+
+.category-btn:hover {
+    transform: translateY(-2px);
+>>>>>>> 61b0fadce96f638c7574f9a3da2e81acd3805137
 }
