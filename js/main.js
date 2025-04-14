@@ -867,7 +867,7 @@ function initCategoriesNav() {
             // 更新分类标题
             updateCategoryTitle(category);
             
-            // 高亮当前选中的分类
+            // 高亮当前选中的分类111
             document.querySelectorAll('.category-btn').forEach(btn => {
                 btn.classList.remove('bg-apple-blue');
                 btn.classList.add('bg-[#2A2A3C]');
