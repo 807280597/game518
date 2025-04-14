@@ -131,7 +131,7 @@ function initSearchFunction() {
         } else {
             // 没有匹配结果
             searchResultsContainer.innerHTML = `
-                <div class="p-3 text-apple-gray-600 text-center">No matching games found</div>
+                <div class="p-3 text-apple-gray-600 text-center">没有找到匹配的游戏</div>
             `;
             searchResultsContainer.classList.remove('hidden');
         }
@@ -190,9 +190,9 @@ function renderGameCards(games) {
     if (games.length === 0) {
         gamesContainer.innerHTML = `
             <div class="col-span-full text-center py-10">
-                <p class="text-xl text-apple-gray-400">No matching games found</p>
+                <p class="text-xl text-apple-gray-400">没有找到匹配的游戏</p>
                 <button id="reset-search" class="mt-4 bg-apple-blue text-white px-4 py-2 rounded-lg">
-                    Show All
+                    显示所有游戏
                 </button>
             </div>
         `;
@@ -245,10 +245,10 @@ function initCategoriesNav() {
     // 创建分类导航HTML
     let categoriesHTML = `
         <div class="container mx-auto px-4">
-            <h2 class="text-2xl font-bold mb-6 text-white">Category</h2>
+            <h2 class="text-2xl font-bold mb-6 text-white">游戏分类</h2>
             <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
                 <a href="#" class="category-btn active-category bg-[#2A2A3C] hover:bg-[#3A3A4C] text-white rounded-lg p-4 text-center transition-colors" data-category="ALL">
-                    ALL
+                    所有游戏
                 </a>
     `;
     
@@ -305,10 +305,10 @@ function updateCategoryTitle(category) {
     if (!titleElement || !countElement) return;
     
     if (category === 'ALL') {
-        titleElement.textContent = 'ALL';
+        titleElement.textContent = '所有游戏';
         countElement.textContent = gamesConfig.games.length;
     } else {
-        titleElement.textContent = `${category.charAt(0).toUpperCase() + category.slice(1)}`;
+        titleElement.textContent = `${category.charAt(0).toUpperCase() + category.slice(1)} 游戏`;
         const filteredGames = gamesConfig.games.filter(game => game.category === category);
         countElement.textContent = filteredGames.length;
     }
@@ -340,7 +340,7 @@ function performSearch(query) {
     const gamesCount = document.getElementById('games-count');
     
     if (categoryTitle) {
-        categoryTitle.textContent = `Search Results: "${query}"`;
+        categoryTitle.textContent = `搜索结果: "${query}"`;
     }
     
     if (gamesCount) {
@@ -419,7 +419,7 @@ function initGameDetailPage() {
     
     // 加载相关游戏
     loadRelatedGames(game.category, game.id);
-}
+} 
 
 // 加载相关游戏
 function loadRelatedGames(category, currentGameId) {
@@ -452,7 +452,7 @@ function loadRelatedGames(category, currentGameId) {
             </a>
         `).join('');
     } else {
-        relatedGamesContainer.innerHTML = '<p class="text-apple-gray-400 text-center">No related games</p>';
+        relatedGamesContainer.innerHTML = '<p class="text-apple-gray-400 text-center">没有找到相关游戏</p>';
     }
 }
 
