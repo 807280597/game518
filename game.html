@@ -3,11 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Game Title - GameVerse</title>
-    <meta name="description" content="Play Game Title online at GameVerse. Enjoy this exciting game directly in your browser without any downloads.">
+    <title>Game518</title>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-PC66TN3H16"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-PC66TN3H16');
+    </script>
+    <!-- 添加网站图标 -->
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <title>Game Detail - Game518</title>
+    <meta name="description" content="Play your favorite game on Game518">
     <link rel="canonical" href="https://gameverse.example.com/game.html">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="css/styles.css">
+        <!-- Firebase SDK -->
+        <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
+        <!-- 添加Firebase配置文件 -->
+        <script src="config/firebase-config.js"></script>    
     <!-- 先加载配置文件 -->
     <script src="config/games-config.js"></script>
     <script>
@@ -44,104 +62,88 @@
         }
     </script>
 </head>
-<body class="bg-apple-gray-100 text-apple-gray-900">
-    <header class="bg-apple-blue text-white shadow-md">
-        <div class="container mx-auto px-4 py-6">
-            <div class="flex flex-col md:flex-row justify-between items-center">
-                <div class="text-center md:text-left mb-4 md:mb-0">
-                    <a href="index.html" class="text-3xl font-bold tracking-tight">GameVerse</a>
-                    <p class="text-sm mt-1">Your Ultimate Gaming Destination</p>
+<body class="bg-[#1E1E2E] text-gray-100">
+    <header class="bg-apple-gray-950 text-white shadow-md">
+        <div class="container mx-auto px-4 py-3">
+            <div class="flex items-center justify-between">
+                <a href="index.html" class="text-2xl md:text-3xl font-bold tracking-tight">Game518</a>
+                
+                <!-- 添加搜索框 -->
+                <div class="flex-1 mx-3 max-w-md">
+                    <div class="relative">
+                        <input type="text" id="game-search" placeholder="Search" 
+                               class="w-full py-2 px-4 md:py-3 md:px-5 rounded-full bg-[#373952] text-white placeholder-gray-400 focus:outline-none text-sm md:text-base font-semibold">
+                        <button id="search-button" class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 md:h-6 md:w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                            </svg>
+                        </button>
+                    </div>
                 </div>
-                <nav>
-                    <ul class="flex space-x-6">
-                        <li><a href="index.html" class="hover:text-apple-gray-200 transition-colors">Home</a></li>
-                        <li><a href="index.html#categories" class="hover:text-apple-gray-200 transition-colors">Categories</a></li>
-                        <li><a href="index.html#about" class="hover:text-apple-gray-200 transition-colors">About</a></li>
-                    </ul>
-                </nav>
+            
+                <!-- 添加登录按钮 -->
+                <div>
+                    <button id="login-button" class="bg-purple-600 hover:bg-purple-700 text-white px-3 py-2 md:px-6 md:py-3 rounded-lg text-sm md:text-lg font-medium transition-colors">
+                        Login
+                    </button>
+                    <div id="user-profile" class="hidden flex items-center">
+                        <img id="user-avatar" src="" alt="用户头像" class="w-7 h-7 md:w-8 md:h-8 rounded-full mr-2">
+                        <span id="user-name" class="text-white text-sm md:text-base hidden sm:inline"></span>
+                        <button id="logout-button" class="ml-2 md:ml-3 text-xs md:text-sm text-white hover:text-apple-gray-200 transition-colors">
+                            退出
+                        </button>
+                    </div>
+                </div>
             </div>
         </div>
     </header>
 
     <main class="container mx-auto px-4 py-8">
-        <div id="game-content">
-            <div class="mb-8">
-                <a href="index.html" class="text-apple-blue hover:underline inline-flex items-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" viewBox="0 0 20 20" fill="currentColor">
-                        <path fill-rule="evenodd" d="M9.707 14.707a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 1.414L7.414 9H15a1 1 0 110 2H7.414l2.293 2.293a1 1 0 010 1.414z" clip-rule="evenodd" />
-                    </svg>
-                    Back to Games
-                </a>
-            </div>
-
-            <section class="mb-8">
-                <h1 id="game-title" class="text-4xl md:text-5xl font-bold mb-4"></h1>
-                <p id="game-description" class="text-xl text-apple-gray-700"></p>
+        <div class="bg-[#2A2A3C] rounded-xl shadow-lg overflow-hidden mb-8">
+            <div class="p-6">
+                <h1 id="game-title" class="text-3xl font-bold mb-2 text-white"></h1>
+                <p id="game-description" class="text-gray-400 mb-4"></p>
                 
-                <div class="flex flex-wrap gap-4 mt-4">
-                    <span id="game-category" class="bg-apple-blue text-white px-3 py-1 rounded-full text-sm"></span>
-                    <span id="game-rating" class="flex items-center text-apple-yellow">
+                <!-- 添加游戏图片 -->
+                <img id="game-image" class="w-full rounded-lg mb-4 hidden" alt="">
+                
+                <div class="flex items-center mb-6">
+                    <span id="game-category" class="bg-apple-blue text-white px-3 py-1.5 rounded-full text-sm mr-4"></span>
+                    <!-- 修改评分元素结构 -->
+                    <div class="flex items-center text-apple-yellow mr-4">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                             <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
                         </svg>
-                        <span class="ml-1"></span>
-                    </span>
-                    <span id="game-play-count" class="text-apple-gray-600"></span>
-                </div>
-            </section>
-
-            <section class="mb-12">
-                <div class="bg-white rounded-xl shadow-lg overflow-hidden">
-                    <div id="game-iframe-container" class="aspect-video">
-                        <!-- Game iframe will be inserted here -->
+                        <span id="game-rating" class="ml-1 text-lg font-medium"></span>
                     </div>
+                    <div id="game-play-count" class="text-gray-400"></div>
                 </div>
-            </section>
-
-            <section class="mb-16">
-                <h2 class="text-3xl font-bold mb-6 text-apple-purple">About This Game</h2>
-                <div id="game-full-description" class="prose max-w-none text-apple-gray-800 bg-white rounded-xl shadow-lg p-8">
+            </div>
+            
+            <div class="flex justify-center bg-[#252534] p-4">
+                <div id="game-iframe-container" class="aspect-video w-full md:w-2/3 lg:w-3/4">
+                    <!-- 游戏iframe将在这里加载 -->
                 </div>
-            </section>
+            </div>
+            
+            <div class="p-6">
+                <h2 class="text-2xl font-bold mb-4 text-white">游戏介绍</h2>
+                <div id="game-full-description" class="prose max-w-none text-gray-300">
+                    <!-- 游戏详细描述将在这里加载 -->
+                </div>
+            </div>
+        </div>
+        
+        <!-- 添加相关游戏部分 -->
+        <div class="mb-8">
+            <h2 class="text-2xl font-bold mb-4 text-white">相关游戏</h2>
+            <div id="related-games" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4">
+                <!-- 相关游戏将在这里加载 -->
+            </div>
         </div>
     </main>
 
-    <footer class="bg-apple-gray-900 text-white py-8">
-        <div class="container mx-auto px-4 text-center">
-            <p>&copy; 2023 GameVerse. All rights reserved.</p>
-        </div>
-    </footer>
 
-    <!-- 添加直接引用games.json的脚本 -->
-    <script>
-        // 预加载游戏数据
-        let gamesData = {
-            games: []
-        };
-        
-        // 创建一个script元素来加载JSON数据
-        const jsonScript = document.createElement('script');
-        jsonScript.src = 'data/games.json';
-        jsonScript.type = 'application/json';
-        
-        // 当JSON加载完成后解析数据
-        jsonScript.onload = function() {
-            try {
-                // 尝试解析JSON
-                const jsonText = this.textContent || this.text;
-                if (jsonText) {
-                    gamesData = JSON.parse(jsonText);
-                }
-            } catch (e) {
-                console.error('Error parsing games.json:', e);
-            }
-        };
-        
-        // 添加到文档中
-        document.head.appendChild(jsonScript);
-    </script>
-
-    <!-- 保持原有的main.js引用 -->
     <script src="js/main.js"></script>
 </body>
 </html>

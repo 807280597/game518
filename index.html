@@ -4,12 +4,33 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Game518</title>
-    <meta name="description" content="Discover and play the best online games at GameVerse. From action and adventure to puzzles and strategy games, find your next gaming obsession.">
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-PC66TN3H16"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-PC66TN3H16');
+    </script>
+    <!-- 添加网站图标 -->
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+    <!-- 为iOS设备添加图标 -->
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+    <meta name="description" content="Discover and play the best online games at Game518. From action and adventure to puzzles and strategy games, find your next gaming obsession.">
     <link rel="canonical" href="https://gameverse.example.com/">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="css/styles.css">
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
+    
     <!-- 先加载配置文件 -->
     <script src="config/games-config.js"></script>
+    <!-- 添加Firebase配置文件 -->
+    <script src="config/firebase-config.js"></script>
     <script>
         tailwind.config = {
             theme: {
@@ -44,77 +65,79 @@
         }
     </script>
 </head>
-<body class="bg-apple-gray-100 text-apple-gray-900">
-    <header class="bg-apple-blue text-white shadow-md">
-        <div class="container mx-auto px-4 py-6">
-            <div class="flex flex-col md:flex-row justify-between items-center">
-                <div class="text-center md:text-left mb-4 md:mb-0">
-                    <a href="index.html" class="text-3xl font-bold tracking-tight">GameVerse</a>
-                    <p class="text-sm mt-1">Your Ultimate Gaming Destination</p>
+<body class="bg-[#1E1E2E] text-gray-100">
+    <header class="bg-apple-gray-950 text-white shadow-md">
+        <div class="container mx-auto px-4 py-3">
+            <div class="flex items-center justify-between">
+                <a href="index.html" class="text-2xl md:text-3xl font-bold tracking-tight">Game518</a>
+                
+                <!-- 添加搜索框 -->
+                <div class="flex-1 mx-3 max-w-md">
+                    <div class="relative">
+                        <input type="text" id="game-search" placeholder="Search" 
+                               class="w-full py-2 px-4 md:py-3 md:px-5 rounded-full bg-[#373952] text-white placeholder-gray-400 focus:outline-none text-sm md:text-base font-semibold">
+                        <button id="search-button" class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 md:h-6 md:w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                            </svg>
+                        </button>
+                    </div>
                 </div>
-                <nav>
-                    <ul class="flex space-x-6">
-                        <li><a href="index.html" class="hover:text-apple-gray-200 transition-colors">Home</a></li>
-                        <li><a href="#categories" class="hover:text-apple-gray-200 transition-colors">Categories</a></li>
-                        <li><a href="#about" class="hover:text-apple-gray-200 transition-colors">About</a></li>
-                    </ul>
-                </nav>
+            
+                <!-- 添加登录按钮 -->
+                <div>
+                    <button id="login-button" class="bg-purple-600 hover:bg-purple-700 text-white px-3 py-2 md:px-6 md:py-3 rounded-lg text-sm md:text-lg font-medium transition-colors">
+                        Login
+                    </button>
+                    <div id="user-profile" class="hidden flex items-center">
+                        <img id="user-avatar" src="" alt="用户头像" class="w-7 h-7 md:w-8 md:h-8 rounded-full mr-2">
+                        <span id="user-name" class="text-white text-sm md:text-base hidden sm:inline"></span>
+                        <button id="logout-button" class="ml-2 md:ml-3 text-xs md:text-sm text-white hover:text-apple-gray-200 transition-colors">
+                            退出
+                        </button>
+                    </div>
+                </div>
             </div>
         </div>
     </header>
 
     <main class="container mx-auto px-4 py-8">
-
         <section class="mb-16">
-            <h2 class="text-3xl font-bold mb-8 text-apple-blue">Featured Games</h2>
             <div id="games-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-8">
-                <!-- Game cards will be dynamically inserted here -->
-            </div>
-        </section>
-
-        <section id="categories" class="mb-16">
-            <h2 class="text-3xl font-bold mb-8 text-apple-purple">Game Categories</h2>
-            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-                <a href="#" class="bg-apple-blue text-white rounded-lg p-6 text-center hover:shadow-lg transition-shadow">
-                    <span class="text-lg font-semibold">Adventure</span>
-                </a>
-                <a href="#" class="bg-apple-green text-white rounded-lg p-6 text-center hover:shadow-lg transition-shadow">
-                    <span class="text-lg font-semibold">Puzzle</span>
-                </a>
-                <a href="#" class="bg-apple-orange text-white rounded-lg p-6 text-center hover:shadow-lg transition-shadow">
-                    <span class="text-lg font-semibold">Racing</span>
-                </a>
-                <a href="#" class="bg-apple-pink text-white rounded-lg p-6 text-center hover:shadow-lg transition-shadow">
-                    <span class="text-lg font-semibold">Strategy</span>
-                </a>
-                <a href="#" class="bg-apple-purple text-white rounded-lg p-6 text-center hover:shadow-lg transition-shadow">
-                    <span class="text-lg font-semibold">RPG</span>
-                </a>
-                <a href="#" class="bg-apple-red text-white rounded-lg p-6 text-center hover:shadow-lg transition-shadow">
-                    <span class="text-lg font-semibold">Action</span>
-                </a>
-            </div>
-        </section>
-
-        <section id="about" class="bg-white rounded-xl shadow-lg p-8 mb-16">
-            <h2 class="text-3xl font-bold mb-6 text-apple-teal">About GameVerse</h2>
-            <div class="prose max-w-none text-apple-gray-800">
-                <p class="mb-4">
-                    GameVerse is dedicated to bringing you the best online gaming experience. Our platform features a carefully curated selection of games across various genres, ensuring there's something for everyone.
-                </p>
-                <p>
-                    All games on our platform are browser-based, allowing you to jump right into the action without any downloads or installations. Simply click and play!
-                </p>
+                <!-- 游戏卡片样式会在 main.js 中更新 -->
             </div>
         </section>
     </main>
 
-    <footer class="bg-apple-gray-900 text-white py-8">
-        <div class="container mx-auto px-4 text-center">
-            <p>&copy; 2023 GameVerse. All rights reserved.</p>
-        </div>
-    </footer>
+        <section id="categories" class="mb-16">
+    </main>
 
+    <!-- 在body标签底部添加 -->
     <script src="js/main.js"></script>
+    
+    <!-- Firebase脚本 -->
+    <script type="module">
+      // Import the functions you need from the SDKs you need
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js";
+      import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-analytics.js";
+      import { getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-auth.js";
+      
+      // 使用配置文件中的Firebase配置
+      const app = initializeApp(firebaseConfig);
+      const analytics = getAnalytics(app);
+      const auth = getAuth(app);
+      
+      // 将Firebase对象暴露给全局，以便main.js可以使用
+      window.firebaseAuth = {
+        auth: auth,
+        GoogleAuthProvider: GoogleAuthProvider,
+        signInWithPopup: signInWithPopup,
+        onAuthStateChanged: onAuthStateChanged,
+        signOut: signOut
+      };
+      
+      // 触发自定义事件，通知main.js Firebase已准备好
+      document.dispatchEvent(new Event('firebaseReady'));
+    </script>
 </body>
 </html>
