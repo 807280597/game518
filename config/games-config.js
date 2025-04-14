@@ -91,7 +91,7 @@ const gamesConfig = {
             "shortDescription": "Master Chess is an online casual chess game with single and multiplayer options. If you want to show off your chess skills, try out this digital tabletop online browser version. In this title, you can play three different game modes and test your skills against other chess players.",
             "fullDescription": "Use the left mouse button to select a unit and move it.",
             "imageUrl": "https://imgs.crazygames.com/games/master-chess/cover-1624894080822.png?metadata=none&quality=70&width=475",
-            "category": "board",
+            "category": "chess",
             "rating": 4.2,
             "playCount": 3498,
             "releaseDate": "2025-04-12",
