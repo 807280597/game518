@@ -1,4 +1,5 @@
 @echo off
+chcp 65001
 echo 正在推送代码到GitHub...
 git add .
 git commit -m "更新: %date% %time%"
