@@ -353,20 +353,20 @@ function performSearch(query) {
     // 渲染过滤后的游戏
     renderGameCards(filteredGames);
     
-    // 更新标题
-    const categoryTitle = document.querySelector('#category-title h3');
-    const gamesCount = document.getElementById('games-count');
+    // 更新标题 - 使用自定义搜索结果标题
+    const categoryNameElement = document.querySelector('#category-name');
+    const countElement = document.querySelector('#games-count');
     
-    if (categoryTitle) {
-        categoryTitle.textContent = `Search Results: "${query}"`;
+    if (categoryNameElement) {
+        categoryNameElement.textContent = `Search Results: "${query}"`;
     }
     
-    if (gamesCount) {
-        gamesCount.textContent = filteredGames.length;
+    if (countElement) {
+        countElement.textContent = filteredGames.length;
     }
     
     // 移除所有分类按钮的高亮
-    document.querySelectorAll('.category-btn').forEach(btn => {
+    document.querySelectorAll('.sidebar-item').forEach(btn => {
         btn.classList.remove('active-category');
     });
 }
