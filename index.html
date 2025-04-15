@@ -67,14 +67,33 @@
         .sidebar {
             position: fixed;
             left: 0;
-            top: 56px; /* 调整为header的高度 */
-            height: calc(100% - 56px); /* 减去header的高度 */
+            top: 56px;
+            height: calc(100% - 56px);
             width: 60px;
             background-color: #252538;
             transition: width 0.3s ease;
-            overflow: hidden;
+            overflow-y: auto; /* 添加垂直滚动 */
+            overflow-x: hidden; /* 隐藏水平滚动条 */
             z-index: 1000;
-            padding-top: 0; /* 移除顶部padding */
+            padding-top: 0;
+        }
+        
+        /* 自定义滚动条样式 */
+        .sidebar::-webkit-scrollbar {
+            width: 4px;
+        }
+        
+        .sidebar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        
+        .sidebar::-webkit-scrollbar-thumb {
+            background: #3A3A4C;
+            border-radius: 4px;
+        }
+        
+        .sidebar::-webkit-scrollbar-thumb:hover {
+            background: #4A4A5C;
         }
         
         .sidebar:hover {

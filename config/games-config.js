@@ -228,6 +228,78 @@ const gamesConfig = {
             "playCount": 434,
             "releaseDate": "2025-04-15",
             "iframeUrl": "https://www.crazygames.com/embed/street-fighter-simulator"
+          },
+          {
+            "id": 1744700756630,
+            "title": "Medieval Arena",
+            "shortDescription": "Medieval Arena is a thrilling multiplayer combat game set in a blocky, immersive battlefield. Choose your path as an Archer, Swordsman, or Berserker, and dive into intense PvP matches. Sharpen your tactics, hone your skills, and outwit opponents in fast-paced action. Perfect for those seeking medieval warfare and heart-pounding competition. Claim victory and rise above the rest!\n\n",
+            "fullDescription": "Controls\nWASD to move\nSpace to jump\nLeft mouse to fire/attack\nTab to open stats and settings",
+            "imageUrl": "https://imgs.crazygames.com/medieval-arena_16x9/20250411173533/medieval-arena_16x9-cover?metadata=none&quality=70&width=475",
+            "category": "action",
+            "rating": 4.5,
+            "playCount": 9983,
+            "releaseDate": "2025-04-15",
+            "iframeUrl": "https://www.crazygames.com/embed/medieval-arena"
+          },
+          {
+            "id": 1744700809184,
+            "title": "Hyperspace: Quantum Fracture",
+            "shortDescription": "Hyperspace: Quantum Fracture is a sci-fi shoot 'em up blending roguelike progression, bullet hell intensity, and auto-shooter action. You are on a thrilling journey through deep space, facing relentless enemy swarms. Test your survival skills in the vast unknown.\n\n",
+            "fullDescription": "PC Controls\nUse WASD / arrow keys /drag the left mouse button to move.\n\nMobile Controls\nDrag in the direction you want to go.",
+            "imageUrl": "https://imgs.crazygames.com/hyperspace---quantum-fracture-fez_16x9/20250402083340/hyperspace---quantum-fracture-fez_16x9-cover?metadata=none&quality=70&width=475",
+            "category": "shooter",
+            "rating": 4.8,
+            "playCount": 8605,
+            "releaseDate": "2025-04-15",
+            "iframeUrl": "https://www.crazygames.com/embed/hyperspace---quantum-fracture-fez"
+          },
+          {
+            "id": 1744700865525,
+            "title": "Blitzkrieg Assault: War Zone!",
+            "shortDescription": "Blitzkrieg Assault: War Zone is an intense shooter with tower defense elements set in the chaos of World War II. Take on the unstoppable armored train, using only your machine gun and sharp aim to halt its advance. Destroy train cars, upgrade skill cards, and master strategic combat in a fast-paced battle for victory.\n\n",
+            "fullDescription": "Controls\nUse the left mouse button / WASD / arrow keys to aim and shoot.",
+            "imageUrl": "https://imgs.crazygames.com/blitzkrieg-assault-war-zone_16x9/20250331074441/blitzkrieg-assault-war-zone_16x9-cover?metadata=none&quality=70&width=475",
+            "category": "shooter",
+            "rating": 4.4,
+            "playCount": 1024,
+            "releaseDate": "2025-04-15",
+            "iframeUrl": "https://www.crazygames.com/embed/blitzkrieg-assault-war-zone"
+          },
+          {
+            "id": 1744700935526,
+            "title": "Modern Cannon Strike",
+            "shortDescription": "Modern Cannon Strike is an action game in which you must launch a missile to destroy your enemy. Aim at the specific location, and then fire! You can easily aim for your enemies by looking at the red target on the tablet and then timing your shots. Enjoy the game, and get ready for the battle!\n\n",
+            "fullDescription": "Controls\nPC Controls\nDrag the left mouse button to aim and release to shoot.\n\nMobile Controls\nDrag with your finger to aim and release to shoot.",
+            "imageUrl": "https://imgs.crazygames.com/modern-cannon-strike_16x9/20240409071436/modern-cannon-strike_16x9-cover?metadata=none&quality=70&width=475",
+            "category": "action",
+            "rating": 4.5,
+            "playCount": 5310,
+            "releaseDate": "2025-04-15",
+            "iframeUrl": "https://www.crazygames.com/embed/modern-cannon-strike"
+          },
+          {
+            "id": 1744701035310,
+            "title": "Right Jump",
+            "shortDescription": "Right Jump is an exciting casual platformer game that tests your agility and strategy! In Right Jump, timing is everything—jump at the perfect moment to navigate through tricky platforms, elevators, trampolines, and moving obstacles. Can you reach the end of each level?\n\n",
+            "fullDescription": "Controls\nHold the left mouse button to aim your move and release it to jump, or use the AD or arrow keys to perform the move and release to jump",
+            "imageUrl": "https://imgs.crazygames.com/right-jump_16x9/20250402075906/right-jump_16x9-cover?metadata=none&quality=70&width=475",
+            "category": "strategy",
+            "rating": 4.7,
+            "playCount": 5122,
+            "releaseDate": "2025-04-15",
+            "iframeUrl": "https://www.crazygames.com/embed/right-jump"
+          },
+          {
+            "id": 1744701076142,
+            "title": "Bicycle Kick Champ",
+            "shortDescription": "Bicycle Kick Champ is an arcade game where you have one purpose - bicycle kick the ball into the goal! Time your shots perfectly to make sure they aren't blocked and aim to get the highest score as you keep hitting those passes into the net.\n\n",
+            "fullDescription": "Controls\nLeft-click = shoot",
+            "imageUrl": "https://imgs.crazygames.com/games/bicycle-kick-champ/cover-1630293242636.png?metadata=none&quality=70&width=475",
+            "category": "arcade",
+            "rating": 4.9,
+            "playCount": 3373,
+            "releaseDate": "2025-04-15",
+            "iframeUrl": "https://www.crazygames.com/embed/bicycle-kick-champ"
           }
     ]
 };
