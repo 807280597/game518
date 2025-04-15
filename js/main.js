@@ -218,7 +218,6 @@ function renderGameCards(games) {
                 </div>
             </div>
             <div class="p-4">
-                <p class="text-apple-gray-600 dark:text-apple-gray-300 text-sm game-description mb-3">${game.shortDescription.substring(0, 100)}${game.shortDescription.length > 100 ? '...' : ''}</p>
                 <div class="flex items-center justify-between">
                     <span class="bg-apple-blue/10 text-apple-blue dark:bg-apple-blue/20 dark:text-apple-blue px-3 py-1 rounded-full text-sm">${game.category}</span>
                     <div class="flex items-center text-apple-yellow">
@@ -242,35 +241,53 @@ function initCategoriesNav() {
     const categoriesSection = document.getElementById('categories');
     if (!categoriesSection) return;
     
+    // 定义分类图标和颜色
+    const categoryIcons = [
+        { icon: 'gamepad', color: '#FF9500' }, // 橙色
+        { icon: 'puzzle-piece', color: '#34C759' }, // 绿色
+        { icon: 'car-side', color: '#007AFF' }, // 蓝色
+        { icon: 'chess', color: '#AF52DE' }, // 紫色
+        { icon: 'running', color: '#FF2D55' }, // 粉色
+        { icon: 'brain', color: '#5AC8FA' }, // 青色
+        { icon: 'fighter-jet', color: '#FFCC00' }, // 黄色
+        { icon: 'rocket', color: '#FF3B30' }, // 红色
+        { icon: 'football-ball', color: '#5856D6' }, // 靛蓝色
+        { icon: 'ghost', color: '#BF5AF2' }, // 亮紫色
+        { icon: 'dice', color: '#64D2FF' }, // 浅蓝色
+        { icon: 'hat-wizard', color: '#FF375F' }  // 深粉色
+    ];
+    
+    // 随机打乱图标数组，确保随机分配且不重复
+    const shuffledIcons = [...categoryIcons].sort(() => Math.random() - 0.5);
+    
     // 创建分类导航HTML
     let categoriesHTML = `
-        <div class="container mx-auto px-4">
-            <h2 class="text-2xl font-bold mb-6 text-white">游戏分类</h2>
-            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
-                <a href="#" class="category-btn active-category bg-[#2A2A3C] hover:bg-[#3A3A4C] text-white rounded-lg p-4 text-center transition-colors" data-category="ALL">
-                    所有游戏
-                </a>
+        <!-- 所有游戏分类 -->
+        <a href="#" class="sidebar-item active-category" data-category="ALL">
+            <i class="fas fa-grip" style="color:rgb(161, 52, 204);"></i>
+            <span>所有游戏</span>
+        </a>
     `;
     
-    // 添加每个分类
-    categories.forEach(category => {
+    // 添加每个分类，并分配随机图标
+    categories.forEach((category, index) => {
+        // 确保不超出图标数组范围
+        const iconIndex = index % shuffledIcons.length;
+        const { icon, color } = shuffledIcons[iconIndex];
+        
         categoriesHTML += `
-            <a href="#" class="category-btn bg-[#2A2A3C] hover:bg-[#3A3A4C] text-white rounded-lg p-4 text-center transition-colors" data-category="${category}">
-                ${category.charAt(0).toUpperCase() + category.slice(1)}
+            <a href="#" class="sidebar-item" data-category="${category}">
+                <i class="fas fa-${icon}" style="color: ${color};"></i>
+                <span>${category.charAt(0).toUpperCase() + category.slice(1)}</span>
             </a>
         `;
     });
-    
-    categoriesHTML += `
-            </div>
-        </div>
-    `;
     
     // 设置分类导航HTML
     categoriesSection.innerHTML = categoriesHTML;
     
     // 添加分类按钮点击事件
-    document.querySelectorAll('.category-btn').forEach(btn => {
+    document.querySelectorAll('.sidebar-item').forEach(btn => {
         btn.addEventListener('click', function(e) {
             e.preventDefault();
             
@@ -289,7 +306,7 @@ function initCategoriesNav() {
             updateCategoryTitle(category);
             
             // 高亮当前选中的分类
-            document.querySelectorAll('.category-btn').forEach(btn => {
+            document.querySelectorAll('.sidebar-item').forEach(btn => {
                 btn.classList.remove('active-category');
             });
             this.classList.add('active-category');

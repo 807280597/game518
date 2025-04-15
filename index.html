@@ -22,6 +22,7 @@
     <link rel="canonical" href="https://gameverse.example.com/">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <!-- 先加载配置文件 -->
     <script src="config/games-config.js"></script>
@@ -59,11 +60,75 @@
             }
         }
     </script>
+    <style>
+        /* 抽屉式导航样式 */
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 60px;
+            background-color: #252538;
+            transition: width 0.3s ease;
+            overflow: hidden;
+            z-index: 1000;
+            padding-top: 70px; /* 为顶部导航留出空间 */
+        }
+        
+        .sidebar:hover {
+            width: 200px;
+        }
+        
+        .sidebar-item {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            color: white;
+            transition: background-color 0.2s;
+            white-space: nowrap;
+        }
+        
+        .sidebar-item:hover {
+            background-color: #3A3A4C;
+        }
+        
+        .sidebar-item i {
+            min-width: 30px;
+            text-align: center;
+            font-size: 1.25rem;
+        }
+        
+        .sidebar-item span {
+            margin-left: 10px;
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+        
+        .sidebar:hover .sidebar-item span {
+            opacity: 1;
+        }
+        
+        .active-category {
+            background-color: #3A3A4C;
+        }
+        
+        /* 调整主内容区域的左边距 */
+        .main-content {
+            margin-left: 60px;
+            transition: margin-left 0.3s ease;
+        }
+        
+        /* 调整顶部导航栏，使其与侧边栏不重叠 */
+        .header-content {
+            margin-left: 60px;
+            transition: margin-left 0.3s ease;
+        }
+    </style>
 </head>
 <body class="bg-[#1E1E2E] text-gray-100">
-    <header class="bg-apple-gray-950 text-white shadow-md">
+    <header class="bg-apple-gray-950 text-white shadow-md fixed top-0 left-0 right-0 z-50">
         <div class="container mx-auto px-4 py-3">
-            <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-4 header-content">
                 <!-- 网站Logo -->
                 <a href="index.html" class="flex items-center">
                     <img src="favicon.png" alt="Game518 Logo" class="h-10 mr-3">
@@ -87,13 +152,13 @@
         </div>
     </header>
 
-    <!-- 分类导航 -->
-    <section id="categories" class="py-8 bg-[#252538]">
+    <!-- 左侧抽屉式分类导航 -->
+    <nav id="categories" class="sidebar">
         <!-- 分类内容将由JavaScript动态生成 -->
-    </section>
+    </nav>
 
     <!-- 游戏列表 -->
-    <section class="py-10">
+    <section class="py-10 main-content mt-16">
         <div class="container mx-auto px-4">
             <div id="category-title" class="flex items-center justify-between mb-8">
                 <h3 class="text-3xl font-bold text-white">所有游戏</h3>
