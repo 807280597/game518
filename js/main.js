@@ -443,8 +443,9 @@ function initGameDetailPage() {
 
 // 加载相关游戏
 function loadRelatedGames(category, currentGameId) {
+    const relatedGamesSection = document.querySelector('.mb-8:last-child');
     const relatedGamesContainer = document.getElementById('related-games');
-    if (!relatedGamesContainer) return;
+    if (!relatedGamesContainer || !relatedGamesSection) return;
     
     // 查找同类别的游戏，排除当前游戏
     const relatedGames = gamesConfig.games
@@ -471,8 +472,10 @@ function loadRelatedGames(category, currentGameId) {
                 </div>
             </a>
         `).join('');
+        relatedGamesSection.classList.remove('hidden');
     } else {
-        relatedGamesContainer.innerHTML = '<p class="text-apple-gray-400 text-center">No related games found</p>';
+        // 如果没有相关游戏，隐藏整个相关游戏部分
+        relatedGamesSection.classList.add('hidden');
     }
 }
 
