@@ -168,6 +168,66 @@ const gamesConfig = {
             "playCount": 269,
             "releaseDate": "2025-04-12",
             "iframeUrl": "https://www.crazygames.com/embed/doors-castle"
+          },
+          {
+            "id": 1744699275951,
+            "title": "Foono Online Multiplayer",
+            "shortDescription": "Foono Online Multiplayer is an engaging card game that takes inspiration from classics like Uno Online and Crazy Eights. The objective is to clear your hand of cards before your opponents do. It's a game of strategy, quick thinking, and a bit of luck. Foono offers endless fun and opportunities for social interaction. Whether you're playing casually with friends or in competitive online matches, Foono promises an entertaining card game experience!",
+            "fullDescription": "Controls\nUse the left mouse button to click or select a card when it's your turn, or the side card to draw a card.",
+            "imageUrl": "https://imgs.crazygames.com/foono-online-multiplayer-card-game_16x9/20231002101605/foono-online-multiplayer-card-game_16x9-cover?metadata=none&quality=70&width=475",
+            "category": "action",
+            "rating": 4.5,
+            "playCount": 7197,
+            "releaseDate": "2025-04-15",
+            "iframeUrl": "https://www.crazygames.com/embed/foono-online-multiplayer-card-game"
+          },
+          {
+            "id": 1744699367552,
+            "title": "Nébula Tarot Cat",
+            "shortDescription": "Nébula Tarot Cat is a mystical journey where you consult a magical AI-powered cat for guidance. Dive into the enchanting world of tarot, ask your burning questions, and uncover the universe’s secrets through Nébula’s intuitive wisdom. With every card drawn, her insights illuminate your path, blending esoteric charm and AI precision to reveal the answers you seek.",
+            "fullDescription": "Controls\nUse the left mouse button to play.",
+            "imageUrl": "https://imgs.crazygames.com/nebula-tarot-cat-uee_16x9/20250214041139/nebula-tarot-cat-uee_16x9-cover?metadata=none&quality=70&width=475",
+            "category": "card",
+            "rating": 4.1,
+            "playCount": 4432,
+            "releaseDate": "2025-04-15",
+            "iframeUrl": "https://www.crazygames.com/embed/nebula-tarot-cat-uee"
+          },
+          {
+            "id": 1744699417918,
+            "title": "Dungeon of Terror",
+            "shortDescription": "Dungeon of Terror is a thrilling casual deck-building game where strategy, resource management, and survival come together. Your mission is to navigate a labyrinthine dungeon, gather resources, and release imprisoned captives—all while avoiding the wrath of the terrifying Minotaur that lurks within.",
+            "fullDescription": "Controls\nDrag and drop the card onto the dungeon to use it\nLeft mouse button to zoom and interact with in-game UI\nDouble LMB to move to an adjacent room\nHold RMB to show the room details",
+            "imageUrl": "https://imgs.crazygames.com/dungeon-of-terror_16x9/20241223042103/dungeon-of-terror_16x9-cover?metadata=none&quality=70&width=475",
+            "category": "simulation",
+            "rating": 4.8,
+            "playCount": 3099,
+            "releaseDate": "2025-04-15",
+            "iframeUrl": "https://www.crazygames.com/embed/dungeon-of-terror"
+          },
+          {
+            "id": 1744699474982,
+            "title": "Robox",
+            "shortDescription": "Robox is a puzzle platformer game where you control a robot to find the exit door. Help him to escape enemies and traps along the way. Jump, shoot the boxes using your teleportation gun, and try to reach the door. Good luck!\n\n",
+            "fullDescription": "Controls\nA / left arrow key = move left\nD / right arrow key = move right\nW / Z = jump\nE / J = shoot\nR = reset\nEsc / B = back",
+            "imageUrl": "https://imgs.crazygames.com/robox_16x9/20250414091125/robox_16x9-cover?metadata=none&quality=70&width=475",
+            "category": "shooter",
+            "rating": 4.3,
+            "playCount": 8540,
+            "releaseDate": "2025-04-15",
+            "iframeUrl": "https://www.crazygames.com/embed/robox"
+          },
+          {
+            "id": 1744699615488,
+            "title": "Street Fighter Simulator",
+            "shortDescription": "Street Fighter Simulator is an action-packed fighting game where you rise through the ranks by mastering your combat skills, unlocking new abilities, and battling fierce opponents in dynamic and immersive environments. Whether you’re in Arcade Mode enjoying custom battles or in Career Mode earning your place as a champion, every fight brings you closer to becoming the Ultimate Street Fighter.\n\n",
+            "fullDescription": "Controls\nWASD = move\nUp arrow key = block\nDown arrow key = kick\nLeft arrow key = punch\nWASD + right arrow key = dodge\nTab = paus",
+            "imageUrl": "https://imgs.crazygames.com/street-fighter-simulator_16x9/20250210050647/street-fighter-simulator_16x9-cover?metadata=none&quality=70&width=475",
+            "category": "action",
+            "rating": 4.2,
+            "playCount": 434,
+            "releaseDate": "2025-04-15",
+            "iframeUrl": "https://www.crazygames.com/embed/street-fighter-simulator"
           }
     ]
 };
