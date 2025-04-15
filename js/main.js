@@ -89,6 +89,7 @@ function initSearchFunction() {
     }
     
     // 显示搜索建议
+    // 显示搜索建议
     function showSearchSuggestions(query) {
         query = query.toLowerCase();
         
@@ -131,7 +132,7 @@ function initSearchFunction() {
         } else {
             // 没有匹配结果
             searchResultsContainer.innerHTML = `
-                <div class="p-3 text-apple-gray-600 text-center">没有找到匹配的游戏</div>
+                <div class="p-3 text-apple-gray-600 text-center">No matching games found</div>
             `;
             searchResultsContainer.classList.remove('hidden');
         }
@@ -190,9 +191,9 @@ function renderGameCards(games) {
     if (games.length === 0) {
         gamesContainer.innerHTML = `
             <div class="col-span-full text-center py-10">
-                <p class="text-xl text-apple-gray-400">没有找到匹配的游戏</p>
+                <p class="text-xl text-apple-gray-400">No matching games found</p>
                 <button id="reset-search" class="mt-4 bg-apple-blue text-white px-4 py-2 rounded-lg">
-                    显示所有游戏
+                    Show All Games
                 </button>
             </div>
         `;
@@ -265,7 +266,7 @@ function initCategoriesNav() {
         <!-- 所有游戏分类 -->
         <a href="#" class="sidebar-item active-category" data-category="ALL">
             <i class="fas fa-grip" style="color:rgb(161, 52, 204);"></i>
-            <span>所有游戏</span>
+            <span>ALL</span>
         </a>
     `;
     
@@ -316,16 +317,16 @@ function initCategoriesNav() {
 
 // 更新分类标题
 function updateCategoryTitle(category) {
-    const titleElement = document.querySelector('#category-title h3');
+    const categoryNameElement = document.querySelector('#category-name');
     const countElement = document.querySelector('#games-count');
     
-    if (!titleElement || !countElement) return;
+    if (!categoryNameElement || !countElement) return;
     
     if (category === 'ALL') {
-        titleElement.textContent = '所有游戏';
+        categoryNameElement.textContent = 'All Games';
         countElement.textContent = gamesConfig.games.length;
     } else {
-        titleElement.textContent = `${category.charAt(0).toUpperCase() + category.slice(1)} 游戏`;
+        categoryNameElement.textContent = `${category.charAt(0).toUpperCase() + category.slice(1)} Games`;
         const filteredGames = gamesConfig.games.filter(game => game.category === category);
         countElement.textContent = filteredGames.length;
     }
@@ -357,7 +358,7 @@ function performSearch(query) {
     const gamesCount = document.getElementById('games-count');
     
     if (categoryTitle) {
-        categoryTitle.textContent = `搜索结果: "${query}"`;
+        categoryTitle.textContent = `Search Results: "${query}"`;
     }
     
     if (gamesCount) {
@@ -372,14 +373,14 @@ function performSearch(query) {
 
 // 游戏详情页初始化
 function initGameDetailPage() {
-    console.log('初始化游戏详情页');
+    console.log('Initializing game detail page');
     
     // 从URL获取游戏ID
     const urlParams = new URLSearchParams(window.location.search);
     const gameId = urlParams.get('id');
     
     if (!gameId) {
-        console.error('未找到游戏ID');
+        console.error('Game ID not found');
         return;
     }
     
@@ -387,7 +388,7 @@ function initGameDetailPage() {
     const game = gamesConfig.games.find(g => g.id.toString() === gameId);
     
     if (!game) {
-        console.error('未找到对应的游戏数据');
+        console.error('Game data not found');
         return;
     }
     
@@ -408,7 +409,7 @@ function initGameDetailPage() {
     if (gameRating) gameRating.textContent = game.rating;
     
     const gamePlayCount = document.getElementById('game-play-count');
-    if (gamePlayCount) gamePlayCount.textContent = `${game.playCount.toLocaleString()} 次游玩`;
+    if (gamePlayCount) gamePlayCount.textContent = `${game.playCount.toLocaleString()} plays`;
     
     // 显示游戏图片
     const gameImage = document.getElementById('game-image');
@@ -423,11 +424,13 @@ function initGameDetailPage() {
     if (gameIframeContainer) {
         gameIframeContainer.innerHTML = `<iframe src="${game.iframeUrl}" class="game-iframe" title="${game.title}" allowfullscreen></iframe>`;
     }
-        // 更新游戏简单描述
-        const gameShortDescription = document.getElementById('game-short-description');
-        if (gameShortDescription) {
-            gameShortDescription.innerHTML = game.shortDescription.replace(/\n/g, '<br>');
-        }
+    
+    // 更新游戏简单描述
+    const gameShortDescription = document.getElementById('game-short-description');
+    if (gameShortDescription) {
+        gameShortDescription.innerHTML = game.shortDescription.replace(/\n/g, '<br>');
+    }
+    
     // 更新游戏详细描述
     const gameFullDescription = document.getElementById('game-full-description');
     if (gameFullDescription) {
@@ -469,7 +472,7 @@ function loadRelatedGames(category, currentGameId) {
             </a>
         `).join('');
     } else {
-        relatedGamesContainer.innerHTML = '<p class="text-apple-gray-400 text-center">没有找到相关游戏</p>';
+        relatedGamesContainer.innerHTML = '<p class="text-apple-gray-400 text-center">No related games found</p>';
     }
 }
 
