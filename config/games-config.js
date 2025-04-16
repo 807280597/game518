@@ -300,6 +300,66 @@ const gamesConfig = {
             "playCount": 3373,
             "releaseDate": "2025-04-15",
             "iframeUrl": "https://www.crazygames.com/embed/bicycle-kick-champ"
+          },
+          {
+            "id": 1744805687714,
+            "title": "Italian Brainrot Clicker",
+            "shortDescription": "Italian Brainrot Clicker is a chaotic meme clicker game where you tap your way through the viral Italian Brainrot universe, unlocking all the brainrot characters and upgrades as you progress! You will get the chance to collect Italian Brainrot characters such as: Bombardino Crocodilo, Tung Tung Tung Sahur, Tralalero Tralala, Bombombini Gussini, Cappuccino Assasino, Lirili Larila, Brr Brr Patapim, Burbaloni Luliloli, Bobritto Bandito, Trippi Troppi, Chimpanzini Bananini and more! Can you collect them all?\n\n",
+            "fullDescription": "Controls\nUse the left mouse button to play and interact with the in-game UI.",
+            "imageUrl": "https://imgs.crazygames.com/italian-brainrot-clicker-usp_16x9/20250416054751/italian-brainrot-clicker-usp_16x9-cover?metadata=none&quality=70&width=475",
+            "category": "puzzle",
+            "rating": 4.7,
+            "playCount": 5718,
+            "releaseDate": "2025-04-16",
+            "iframeUrl": "https://www.crazygames.com/embed/italian-brainrot-clicker-usp"
+          },
+          {
+            "id": 1744805752971,
+            "title": "Stone Grass: Mowing Simulator",
+            "shortDescription": "Stone Grass: Mowing Simulator is a relaxing yet addictive game where you take control of a powerful mower and transform wild fields into perfectly trimmed landscapes. Glide smoothly through thick overgrowth, clearing grass with satisfying precision.\n\n",
+            "fullDescription": "Controls\nUse WASD / arrow keys / drag the left mouse button to move around.",
+            "imageUrl": "https://imgs.crazygames.com/stone-grass-mowing-simulator_16x9/20250410062107/stone-grass-mowing-simulator_16x9-cover?metadata=none&quality=70&width=475",
+            "category": "simulation",
+            "rating": 4.6,
+            "playCount": 3238,
+            "releaseDate": "2025-04-16",
+            "iframeUrl": "https://www.crazygames.com/embed/stone-grass-mowing-simulator"
+          },
+          {
+            "id": 1744805796899,
+            "title": "Medieval Arena",
+            "shortDescription": "Medieval Arena is a thrilling multiplayer combat game set in a blocky, immersive battlefield. Choose your path as an Archer, Swordsman, or Berserker, and dive into intense PvP matches. Sharpen your tactics, hone your skills, and outwit opponents in fast-paced action. Perfect for those seeking medieval warfare and heart-pounding competition. Claim victory and rise above the rest!\n\n",
+            "fullDescription": "Controls\nWASD to move\nSpace to jump\nLeft mouse to fire/attack\nTab to open stats and settings",
+            "imageUrl": "https://imgs.crazygames.com/medieval-arena_16x9/20250411173533/medieval-arena_16x9-cover?metadata=none&quality=70&width=475",
+            "category": "action",
+            "rating": 4.8,
+            "playCount": 9169,
+            "releaseDate": "2025-04-16",
+            "iframeUrl": "https://www.crazygames.com/embed/medieval-arena"
+          },
+          {
+            "id": 1744805842394,
+            "title": "TDP4: Team Battle",
+            "shortDescription": "TDP4: Team Battle is a free-to-play 2D multiplayer platformer shooter with intense action. Jump into fast-paced battles, upgrade your character, and dominate the arena across multiple game modes.\n\n",
+            "fullDescription": "Controls\nW = jump\nA = move left\nD = move right\nS = crouch\nC = crawl\nE = throw grenade\nLeft-click = sho",
+            "imageUrl": "https://imgs.crazygames.com/tdp4-team-battle_16x9/20250410042013/tdp4-team-battle_16x9-cover?metadata=none&quality=70&width=475",
+            "category": "shooter",
+            "rating": 4.7,
+            "playCount": 2889,
+            "releaseDate": "2025-04-16",
+            "iframeUrl": "https://www.crazygames.com/embed/tdp4-team-battle"
+          },
+          {
+            "id": 1744805886530,
+            "title": "Archers Battle",
+            "shortDescription": "Archers Battle is an .io-style third-person shooter game, packed with stickmen, horses, bows, and arrows! Battle against players from around the world, collect diamonds, and rise to the top of the leaderboard! Jump into the Archers Battle arena, unleash your inner marksman, and prove your skill in this chaotic stickman showdown!\n\n",
+            "fullDescription": "Controls\nWASD or arrow keys = move\nLeft mouse button = shoot or interact with in-game UI\nSpace or shift = sprint\n1,2,3 = use upgrades\nTAB = open settings\n4-9,0 = use emojis",
+            "imageUrl": "https://imgs.crazygames.com/archers-battle_16x9/20250416101236/archers-battle_16x9-cover?metadata=none&quality=70&width=475",
+            "category": "shooter",
+            "rating": 4.6,
+            "playCount": 6858,
+            "releaseDate": "2025-04-16",
+            "iframeUrl": "https://www.crazygames.com/embed/archers-battle"
           }
     ]
 };
